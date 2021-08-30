@@ -8,10 +8,21 @@
         <outputRelativeToContentRoot value="true" />
         <module name="DiscoveryAccountSystemRepo" />
         <module name="DiscoveryAccountSystemLogic" />
+        <module name="DiscoveryAccountSystemTranslator" />
         <module name="DiscoveryAccountSystemDomain" />
-        <module name="DiscoveryAccountSystemTranslate" />
+        <module name="DiscoveryAccountSystemWebSpringBoot" />
         <module name="DiscoveryAccountSystemWeb" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DiscoveryAccountSystemDomain" options="-parameters" />
+      <module name="DiscoveryAccountSystemLogic" options="-parameters" />
+      <module name="DiscoveryAccountSystemRepo" options="-parameters" />
+      <module name="DiscoveryAccountSystemTranslator" options="-parameters" />
+      <module name="DiscoveryAccountSystemWeb" options="-parameters" />
+      <module name="DiscoveryAccountSystemWebSpringBoot" options="-parameters" />
+    </option>
   </component>
 </project>
