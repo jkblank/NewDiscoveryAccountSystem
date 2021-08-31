@@ -7,19 +7,24 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DiscoveryAccountSystemRepo" />
+        <module name="DiscoveryAccountSystemDomain" />
+        <module name="DiscoveryAccountSystemWeb" />
         <module name="DiscoveryAccountSystemLogic" />
         <module name="DiscoveryAccountSystemTranslator" />
-        <module name="DiscoveryAccountSystemDomain" />
+        <module name="DiscoveryAccountSystemTranslate" />
         <module name="DiscoveryAccountSystemWebSpringBoot" />
-        <module name="DiscoveryAccountSystemWeb" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="DiscoveryAccountSystemTranslator" target="16" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="DiscoveryAccountSystemDomain" options="-parameters" />
       <module name="DiscoveryAccountSystemLogic" options="-parameters" />
       <module name="DiscoveryAccountSystemRepo" options="-parameters" />
+      <module name="DiscoveryAccountSystemTranslate" options="-parameters" />
       <module name="DiscoveryAccountSystemTranslator" options="-parameters" />
       <module name="DiscoveryAccountSystemWeb" options="-parameters" />
       <module name="DiscoveryAccountSystemWebSpringBoot" options="-parameters" />
