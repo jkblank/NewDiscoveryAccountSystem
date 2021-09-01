@@ -14,4 +14,16 @@
     <packaging>war</packaging>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>za.ac.nwu.ac</groupId>
+            <artifactId>DiscoveryAccountSystemDomain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>za.ac.nwu.ac</groupId>
+            <artifactId>DiscoveryAccountSystemLogic</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
