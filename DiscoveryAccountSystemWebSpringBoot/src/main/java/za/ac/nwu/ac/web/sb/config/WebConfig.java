@@ -9,4 +9,5 @@ import org.springframework.context.annotation.Configuration;
         "za.ac.nwu.ac.web.sb.exception"
 })
 public class WebConfig {
+
 }
