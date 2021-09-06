@@ -7,12 +7,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name="ACCOUNT_TX")
+@Table(name="ACCOUNT_TX", schema = "DISCOVERYSYSTEM")
 public class AccountTransaction implements Serializable {
     private static final long serialVersionUID = 1636276203670716488L;
     @Id
-    @SequenceGenerator(name="VIT_RSA_GENERIC_SEQ", sequenceName = "VITRSA_SANDBOX.VIT_RSA_GENERIC_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VIT_RSA_GENERIC_SEQ")
+    @SequenceGenerator(name="SEQ_TX_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_TX_ID", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TX_ID")
 
     private long transactionID;
     private AccountType accountType;
