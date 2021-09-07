@@ -13,5 +13,19 @@
     <artifactId>DiscoveryAccountSystemLogic</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>za.ac.nwu.ac</groupId>
+            <artifactId>DiscoveryAccountSystemDomain</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>za.ac.nwu.ac</groupId>
+            <artifactId>DiscoveryAccountSystemTranslator</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
