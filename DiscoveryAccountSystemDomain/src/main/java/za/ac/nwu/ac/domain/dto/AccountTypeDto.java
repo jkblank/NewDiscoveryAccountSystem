@@ -1,9 +1,11 @@
+//ToDo Create ACC_TX_Dto & UserDto
 package za.ac.nwu.ac.domain.dto;
 
 import za.ac.nwu.ac.domain.persistence.AccountType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class AccountTypeDto implements Serializable {
@@ -52,6 +54,19 @@ public class AccountTypeDto implements Serializable {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountTypeDto that = (AccountTypeDto) o;
+        return Objects.equals(mnemonic, that.mnemonic) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(creationDate, that.creationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mnemonic, accountTypeName, creationDate);
     }
 
     @Override

@@ -28,6 +28,8 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
             }
         }catch (Exception e){
             throw new RuntimeException( "Unable to read from DB", e);
+            //TODO: Create new Exception Type that implements RuntimeException in Domain
+            //TODO: Log Errors
         }
         return  accountTypeDtos;
     }
