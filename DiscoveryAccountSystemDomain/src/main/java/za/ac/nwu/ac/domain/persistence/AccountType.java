@@ -42,6 +42,10 @@ public class AccountType implements Serializable{
         this.accountTypeID = accountTypeID;
     }
 
+    public void setAccountTransaction(Set<AccountTransaction> accountTransaction) {
+        this.accountTransaction = accountTransaction;
+    }
+
     @Column(name= "MNEMONIC")
     public String getMnemonic() {
         return mnemonic;
@@ -67,6 +71,10 @@ public class AccountType implements Serializable{
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setUserAccount(Set<UserAccount> userAccount) {
+        this.userAccount = userAccount;
     }
 
     @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade=CascadeType.PERSIST)
