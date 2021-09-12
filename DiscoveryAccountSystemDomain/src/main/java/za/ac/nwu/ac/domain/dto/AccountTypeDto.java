@@ -1,4 +1,5 @@
-//ToDo Create ACC_TX_Dto & UserDto
+//ToDo Create UserDto
+//ToDO Modify the dto to accept a memberID Parameter
 package za.ac.nwu.ac.domain.dto;
 
 import za.ac.nwu.ac.domain.persistence.AccountType;
