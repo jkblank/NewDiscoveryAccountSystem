@@ -26,9 +26,9 @@ public class AccountTransactionController {
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "Gets all transactions for a given Account Type", notes = " Returns a list of all transactions")
+    @ApiOperation(value = "Gets all Transactions for a given Account Type", notes = " Returns a list of all Transactions")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Account Types Returned", response = GeneralResponse.class),
+            @ApiResponse(code = 200, message = "Account Transactions Returned", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 404, message = "Not Found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
