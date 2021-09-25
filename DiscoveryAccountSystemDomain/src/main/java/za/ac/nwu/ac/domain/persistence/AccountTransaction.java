@@ -20,7 +20,11 @@ public class AccountTransaction implements Serializable {
     private long amount;
     private LocalDate transactionDate;
 
-    public AccountTransaction() {
+    public AccountTransaction(Long memberID, String accountTypeName, Long amount, LocalDate txDate) {
+        this.accountType = accountType;
+        this.memberID = memberID;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
     }
 
     public AccountTransaction(long transactionID, AccountType accountType, long memberID, long amount, LocalDate transactionDate) {
@@ -41,7 +45,7 @@ public class AccountTransaction implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="ACCOUNT_TYPE_ID")
+    @JoinColumn(name ="MNEMONIC")
     public AccountType getAccountType() {
         return accountType;
     }
@@ -94,7 +98,7 @@ public class AccountTransaction implements Serializable {
     public String toString() {
         return "AccountTransaction{" +
                 "transactionID=" + transactionID +
-                ", accountTypeID=" + accountType +
+                ", accountType=" + accountType +
                 ", memberID=" + memberID +
                 ", amount=" + amount +
                 ", transactionDate=" + transactionDate +
