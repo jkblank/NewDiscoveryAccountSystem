@@ -3,6 +3,8 @@ za\ac\nwu\ac\logic\flow\CreateUserAccountFlow.class
 za\ac\nwu\ac\logic\flow\FetchAccountTypeFlow.class
 za\ac\nwu\ac\logic\config\LogicConfig.class
 za\ac\nwu\ac\logic\flow\FetchAccountTransactionFlow.class
+za\ac\nwu\ac\logic\flow\impl\FetchUserAccountFlowImpl.class
+za\ac\nwu\ac\logic\flow\FetchUserAccountFlow.class
 za\ac\nwu\ac\logic\flow\impl\FetchAccountTypeFlowImpl.class
 za\ac\nwu\ac\logic\flow\impl\FetchAccountTransactionFlowImpl.class
 za\ac\nwu\ac\logic\flow\CreateAccountTypeFlow.class

@@ -25,6 +25,16 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
         }catch (Exception e){
             throw  new RuntimeException("Unable to save to the DB", e);
         }
-
     }
+
+//    @Override
+//    public UserAccountDto getUserByMemberIDandMnemonic(String memberID, String mnemonic){
+//        try{
+//            UserAccount userAccount = userAccountRepository.getUserByMemberIDandMnemonic(memberID, mnemonic);
+//            return new UserAccountDto(userAccount);
+//        }catch ( Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//            //ToDo: New exception to be implemented here
+//        }
+//    }
 }
