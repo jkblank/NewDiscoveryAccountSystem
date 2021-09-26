@@ -12,9 +12,30 @@ public class UserAccount implements Serializable {
 
     private Long userAccountID;
     private Long memberID;
-    private AccountType accountType;
+    private Long accountTypeID;
+    //private AccountType accountType;
     private Integer accountBalance;
     private LocalDate creationDate;
+
+    public UserAccount() {
+    }
+
+    public UserAccount(Long userAccountID, Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
+        this.userAccountID = userAccountID;
+        this.memberID = memberID;
+        this.accountTypeID = accountTypeID;
+        this.accountBalance = accountBalance;
+        this.creationDate = creationDate;
+    }
+
+    public UserAccount(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
+        this.memberID = memberID;
+        this.accountTypeID = accountTypeID;
+        this.accountBalance = accountBalance;
+        this.creationDate = creationDate;
+    }
+
+
 
     @Id
     @SequenceGenerator(name = "SEQ_USER_ACCOUNT_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_USER_ACCOUNT_ID")
@@ -38,14 +59,15 @@ public class UserAccount implements Serializable {
     public void setMemberID(Long memberID) {
         this.memberID = memberID;
     }
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ACCOUNT_TYPE_ID")
-    public AccountType getAccountType() {
-        return accountType;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ACCOUNT_TYPE_ID")
+    @Column(name = "ACCOUNT_TYPE_ID")
+    public Long getAccountTypeID() {
+        return accountTypeID;
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
     }
 
     @Column(name = "ACCOUNT_BALANCE")
@@ -72,12 +94,12 @@ public class UserAccount implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserAccount that = (UserAccount) o;
-        return Objects.equals(userAccountID, that.userAccountID) && Objects.equals(memberID, that.memberID) && Objects.equals(accountType, that.accountType) && Objects.equals(accountBalance, that.accountBalance) && Objects.equals(creationDate, that.creationDate);
+        return Objects.equals(userAccountID, that.userAccountID) && Objects.equals(memberID, that.memberID) && Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(accountBalance, that.accountBalance) && Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userAccountID, memberID, accountType, accountBalance, creationDate);
+        return Objects.hash(userAccountID, memberID, accountTypeID, accountBalance, creationDate);
     }
 
     @Override
@@ -85,7 +107,7 @@ public class UserAccount implements Serializable {
         return "UserAccount{" +
                 "userAccountID=" + userAccountID +
                 ", memberID=" + memberID +
-                ", accountTypeID=" + accountType +
+                ", accountTypeID=" + accountTypeID +
                 ", accountBalance=" + accountBalance +
                 ", creationDate=" + creationDate +
                 '}';

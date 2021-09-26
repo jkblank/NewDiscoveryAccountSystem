@@ -3,7 +3,7 @@ package za.ac.nwu.ac.domain.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -18,21 +18,21 @@ public class AccountTransaction implements Serializable {
     private AccountType accountType;
     private long memberID;
     private long amount;
-    private LocalDate transactionDate;
+    private LocalDateTime transactionDateTime;
 
-    public AccountTransaction(Long memberID, String accountTypeName, Long amount, LocalDate txDate) {
+    public AccountTransaction(Long memberID, String accountTypeName, Long amount, LocalDateTime txDate) {
         this.accountType = accountType;
         this.memberID = memberID;
         this.amount = amount;
-        this.transactionDate = transactionDate;
+        this.transactionDateTime = transactionDateTime;
     }
 
-    public AccountTransaction(long transactionID, AccountType accountType, long memberID, long amount, LocalDate transactionDate) {
+    public AccountTransaction(long transactionID, AccountType accountType, long memberID, long amount, LocalDateTime transactionDateTime) {
         this.transactionID = transactionID;
         this.accountType = accountType;
         this.memberID = memberID;
         this.amount = amount;
-        this.transactionDate = transactionDate;
+        this.transactionDateTime = transactionDateTime;
     }
 
     @Column(name = "TX_ID")
@@ -73,12 +73,12 @@ public class AccountTransaction implements Serializable {
     }
 
     @Column(name = "TX_DATE")
-    public LocalDate getTransactionDate() {
-        return transactionDate;
+    public LocalDateTime getTransactionDateTime() {
+        return transactionDateTime;
     }
 
-    public void setTransactionDate(LocalDate transactionDate) {
-        this.transactionDate = transactionDate;
+    public void setTransactionDateTime(LocalDateTime transactionDateTime) {
+        this.transactionDateTime = transactionDateTime;
     }
 
     @Override
@@ -86,12 +86,12 @@ public class AccountTransaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return transactionID == that.transactionID && accountType == that.accountType && memberID == that.memberID && amount == that.amount && Objects.equals(transactionDate, that.transactionDate);
+        return transactionID == that.transactionID && accountType == that.accountType && memberID == that.memberID && amount == that.amount && Objects.equals(transactionDateTime, that.transactionDateTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionID, accountType, memberID, amount, transactionDate);
+        return Objects.hash(transactionID, accountType, memberID, amount, transactionDateTime);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class AccountTransaction implements Serializable {
                 ", accountType=" + accountType +
                 ", memberID=" + memberID +
                 ", amount=" + amount +
-                ", transactionDate=" + transactionDate +
+                ", transactionDateTime=" + transactionDateTime +
                 '}';
     }
 }

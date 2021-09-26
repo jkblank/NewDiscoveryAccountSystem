@@ -88,8 +88,8 @@ public class AccountType implements Serializable{
         return accountTransaction;
     }
 
-    @OneToMany(targetEntity = UserAccount.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
-    public Set<UserAccount> getUserAccount(){ return userAccount;}
+    //@OneToMany(targetEntity = UserAccount.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    //public Set<UserAccount> getUserAccount(){ return userAccount;}
 
     @Override
     public boolean equals(Object o) {

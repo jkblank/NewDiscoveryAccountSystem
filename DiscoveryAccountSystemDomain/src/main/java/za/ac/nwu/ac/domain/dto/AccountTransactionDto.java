@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import za.ac.nwu.ac.domain.persistence.AccountTransaction;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 @ApiModel(value = "AccountTransaction",
             description = "This DTO Represents a transaction record")
@@ -18,23 +18,23 @@ public class AccountTransactionDto implements Serializable {
     private Long memberID;
     private String accountTypeMnemonic;
     private Long amount;
-    private LocalDate txDate;
+    private LocalDateTime txDateTime;
 
     public AccountTransactionDto() {
     }
 
-    public AccountTransactionDto(Long memberID, String accountTypeMnemonic, Long amount, LocalDate txDate) {
+    public AccountTransactionDto(Long memberID, String accountTypeMnemonic, Long amount, LocalDateTime txDateTime) {
         this.memberID = memberID;
         this.accountTypeMnemonic = accountTypeMnemonic;
         this.amount = amount;
-        this.txDate = txDate;
+        this.txDateTime = txDateTime;
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction) {
         this.setMemberID(accountTransaction.getMemberID());
         this.setAccountTypeMnemonic(accountTransaction.getAccountType().getMnemonic());
         this.setAmount(accountTransaction.getAmount());
-        this.setTxDate(accountTransaction.getTransactionDate());
+        this.setTxDateTime(accountTransaction.getTransactionDateTime());
     }
 @ApiModelProperty(position = 1,
         value = "AccountTransaction Member ID",
@@ -92,12 +92,12 @@ public class AccountTransactionDto implements Serializable {
         example = "14-09-2021",
         //allowEmptyValue = false,
         required = true)
-    public LocalDate getTxDate() {
-        return txDate;
+    public LocalDateTime getTxDateTime() {
+        return txDateTime;
     }
 
-    public void setTxDate(LocalDate txDate) {
-        this.txDate = txDate;
+    public void setTxDateTime(LocalDateTime txDateTime) {
+        this.txDateTime = txDateTime;
     }
 
     @Override
@@ -105,16 +105,16 @@ public class AccountTransactionDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransactionDto that = (AccountTransactionDto) o;
-        return Objects.equals(memberID, that.memberID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic) && Objects.equals(amount, that.amount) && Objects.equals(txDate, that.txDate);
+        return Objects.equals(memberID, that.memberID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic) && Objects.equals(amount, that.amount) && Objects.equals(txDateTime, that.txDateTime);
     }
 
     @JsonIgnore
     public AccountTransaction getAccountTransaction(){
-        return new AccountTransaction(getMemberID(), getAccountTypeMnemonic(), getAmount(), getTxDate());
+        return new AccountTransaction(getMemberID(), getAccountTypeMnemonic(), getAmount(), getTxDateTime());
     }
     @Override
     public int hashCode() {
-        return Objects.hash(memberID, accountTypeMnemonic, amount, txDate);
+        return Objects.hash(memberID, accountTypeMnemonic, amount, txDateTime);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class AccountTransactionDto implements Serializable {
                 "memberID='" + memberID + '\'' +
                 ", accountTypeName='" + accountTypeMnemonic + '\'' +
                 ", amount=" + amount +
-                ", txDate=" + txDate +
+                ", txDateTime=" + txDateTime +
                 '}';
     }
 }
