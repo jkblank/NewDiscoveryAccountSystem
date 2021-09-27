@@ -30,5 +30,16 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
             }
             return accountTransactionDtos;
         }
+
+    @Override
+    public AccountTransactionDto create(AccountTransactionDto accountTransaction) {
+        try{
+            AccountTransaction accountTransaction1 = accountTransactionRepository.save(accountTransaction.getAccountTransaction());
+            return new AccountTransactionDto(accountTransaction1);
+        }
+        catch(Exception e){
+            throw new RuntimeException("Unable to save to the DB", e);
+        }
+    }
 }
 

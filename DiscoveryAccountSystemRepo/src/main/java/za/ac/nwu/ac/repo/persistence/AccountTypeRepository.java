@@ -36,6 +36,18 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
         "   WHERE at.mnemonic= :mnemonic")
     AccountTypeDto getAccountTypeDTOByMnemonic(String mnemonic);
 
+//Query for break/savepoint
+    @Query(value = "SAVEPOINT SAVEHERE",nativeQuery = true)
+    void createSavePoint();
+
+//Query for commit
+    @Query(value = "COMMIT",nativeQuery = true)
+    void commitDB();
+
+//Query for rollback if exception is caught
+    @Query(value = "ROLLBACK TO SAVEPOINT SAVEHERE",nativeQuery = true)
+    void rollbackDB();
+
 //    @Query(value = "SELECT"+
 //            "           at.account_type_id "+
 //            "           FROM "+

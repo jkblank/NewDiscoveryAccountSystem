@@ -16,23 +16,25 @@ public class AccountTransactionDto implements Serializable {
     private static final long serialVersionUID = -7819344808062462808L;
 
     private Long memberID;
-    private String accountTypeMnemonic;
+    //private String accountTypeMnemonic;
+    private long accountTypeID;
     private Long amount;
     private LocalDateTime txDateTime;
 
     public AccountTransactionDto() {
     }
 
-    public AccountTransactionDto(Long memberID, String accountTypeMnemonic, Long amount, LocalDateTime txDateTime) {
+    public AccountTransactionDto(Long memberID, long accountTypeID, Long amount, LocalDateTime txDateTime) {
         this.memberID = memberID;
-        this.accountTypeMnemonic = accountTypeMnemonic;
+        //this.accountTypeMnemonic = accountTypeMnemonic;
+        this.accountTypeID = accountTypeID;
         this.amount = amount;
         this.txDateTime = txDateTime;
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction) {
         this.setMemberID(accountTransaction.getMemberID());
-        this.setAccountTypeMnemonic(accountTransaction.getAccountType().getMnemonic());
+        this.setAccountTypeID(accountTransaction.getAccountTypeID());
         this.setAmount(accountTransaction.getAmount());
         this.setTxDateTime(accountTransaction.getTransactionDateTime());
     }
@@ -53,20 +55,28 @@ public class AccountTransactionDto implements Serializable {
     }
 
 @ApiModelProperty(position = 2,
-        value = "AccountTransaction AccountType Name",
-        name = "Account Type Name",
+        value = "AccountTransaction AccountType ID",
+        name = "Account Type ID",
         notes = "Uniquely identifies the account type of the account that made The transaction",
-        dataType = "java.lang.String",
-        example = "Miles",
+        dataType = "java.lang.Long",
+        example = "100000000000003",
         //allowEmptyValue = false,
         required = true)
-    public String getAccountTypeMnemonic() {
-        return accountTypeMnemonic;
+
+    public long getAccountTypeID() {
+        return accountTypeID;
     }
 
-    public void setAccountTypeMnemonic(String accountTypeMnemonic) {
-        this.accountTypeMnemonic = accountTypeMnemonic;
+    public void setAccountTypeID(long accountTypeID) {
+        this.accountTypeID = accountTypeID;
     }
+//    public String getAccountTypeMnemonic() {
+//        return accountTypeMnemonic;
+//    }
+//
+//    public void setAccountTypeMnemonic(String accountTypeMnemonic) {
+//        this.accountTypeMnemonic = accountTypeMnemonic;
+//    }
 
 @ApiModelProperty(position = 3,
         value = "AccountTransaction TX_Amount",
@@ -100,30 +110,33 @@ public class AccountTransactionDto implements Serializable {
         this.txDateTime = txDateTime;
     }
 
+    @JsonIgnore
+    public AccountTransaction getAccountTransaction(){
+        return new AccountTransaction(getMemberID(), getAccountTypeID(), getAmount(), getTxDateTime());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransactionDto that = (AccountTransactionDto) o;
-        return Objects.equals(memberID, that.memberID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic) && Objects.equals(amount, that.amount) && Objects.equals(txDateTime, that.txDateTime);
+        return accountTypeID == that.accountTypeID && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount) && Objects.equals(txDateTime, that.txDateTime);
     }
 
-    @JsonIgnore
-    public AccountTransaction getAccountTransaction(){
-        return new AccountTransaction(getMemberID(), getAccountTypeMnemonic(), getAmount(), getTxDateTime());
-    }
     @Override
     public int hashCode() {
-        return Objects.hash(memberID, accountTypeMnemonic, amount, txDateTime);
+        return Objects.hash(memberID, accountTypeID, amount, txDateTime);
     }
 
     @Override
     public String toString() {
         return "AccountTransactionDto{" +
-                "memberID='" + memberID + '\'' +
-                ", accountTypeName='" + accountTypeMnemonic + '\'' +
+                "memberID=" + memberID +
+                ", accountTypeID=" + accountTypeID +
                 ", amount=" + amount +
                 ", txDateTime=" + txDateTime +
                 '}';
     }
+
+
 }

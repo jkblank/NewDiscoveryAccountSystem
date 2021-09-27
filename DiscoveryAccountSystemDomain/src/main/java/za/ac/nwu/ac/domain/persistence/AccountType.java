@@ -39,7 +39,9 @@ public class AccountType implements Serializable{
     @Id
     @SequenceGenerator(name= "SEQ_ACC_TYPE_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_ACC_TYPE_ID", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ACC_TYPE_ID")
-    @Column(name="ACCOUNT_TYPE_ID")
+    //one to many, and targets the Persistence type in the mapped by field
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "AccountTransaction", orphanRemoval = true, cascade=CascadeType.PERSIST)
+    @JoinColumn (name="ACCOUNT_TYPE_ID")
     public Long getAccountTypeID() {
         return accountTypeID;
     }
@@ -83,10 +85,10 @@ public class AccountType implements Serializable{
         this.userAccount = userAccount;
     }
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade=CascadeType.PERSIST)
-    public Set<AccountTransaction> getAccountTransaction(){
-        return accountTransaction;
-    }
+//    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "ACCOUNT-TYPE-ID", orphanRemoval = true, cascade=CascadeType.PERSIST)
+//    public Set<AccountTransaction> getAccountTransaction(){
+//        return accountTransaction;
+//    }
 
     //@OneToMany(targetEntity = UserAccount.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
     //public Set<UserAccount> getUserAccount(){ return userAccount;}

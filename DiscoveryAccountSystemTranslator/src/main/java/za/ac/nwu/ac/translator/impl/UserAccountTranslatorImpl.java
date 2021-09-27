@@ -20,9 +20,12 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     @Override
     public UserAccountDto create(UserAccountDto userAccountDto) {
         try{
+//            userAccountRepository.createSavePoint();
             UserAccount userAccount= userAccountRepository.save(userAccountDto.getUserAccount());
+//            userAccountRepository.commitDB();
             return new UserAccountDto(userAccount);
         }catch (Exception e){
+//            userAccountRepository.rollbackDB();
             throw  new RuntimeException("Unable to save to the DB", e);
         }
     }

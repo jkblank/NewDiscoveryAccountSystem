@@ -1,4 +1,3 @@
-//TODO:  UserAccountTranslator
 
 package za.ac.nwu.ac.translator;
 
