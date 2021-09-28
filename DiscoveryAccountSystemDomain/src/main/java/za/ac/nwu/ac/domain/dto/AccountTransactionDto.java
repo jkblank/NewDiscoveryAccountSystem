@@ -17,14 +17,14 @@ public class AccountTransactionDto implements Serializable {
 
     private Long memberID;
     //private String accountTypeMnemonic;
-    private long accountTypeID;
-    private Long amount;
+    private Long accountTypeID;
+    private Integer amount;
     private LocalDateTime txDateTime;
 
     public AccountTransactionDto() {
     }
 
-    public AccountTransactionDto(Long memberID, long accountTypeID, Long amount, LocalDateTime txDateTime) {
+    public AccountTransactionDto(Long memberID, Long accountTypeID, Integer amount) {
         this.memberID = memberID;
         //this.accountTypeMnemonic = accountTypeMnemonic;
         this.accountTypeID = accountTypeID;
@@ -86,11 +86,11 @@ public class AccountTransactionDto implements Serializable {
         example = "200",
         //allowEmptyValue = false,
         required = true)
-    public Long getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

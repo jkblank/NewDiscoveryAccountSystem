@@ -1,6 +1,7 @@
 package za.ac.nwu.ac.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import za.ac.nwu.ac.domain.persistence.UserAccount;
@@ -35,6 +36,19 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
             "WHERE " +
             "ua.memberID = :memberID " +
             "AND ua.accountTypeID = :accountTypeID")
-    UserAccount getUserByMemberIDandMnemonic(Long memberID, Long accountTypeID);
+    UserAccount getUserByMemberIDandAccountTypeID(Long memberID, Long accountTypeID);
 
+
+    @Modifying
+    @Query(value = "update " +
+            "UserAccount ua " +
+            "set ua.ACCOUNT_BALANCE = :ACCOUNT_BALANCE " +
+            "where ua.MEMBER_ID = :MEMBER_ID " +
+            "and ua.ACCOUNT_TYPE_ID = :ACCOUNT_TYPE_ID")
+    UserAccount updateUserAccount(long MEMBER_ID, long ACCOUNT_TYPE_ID, int ACCOUNT_BALANCE);
 }
+
+//ToDo: AccountTypeID cannot be called from within UserAccount.
+// Need to call from the transaction.
+// Need to create rollback point, create transaction,
+//      then run update, then commit/rollback

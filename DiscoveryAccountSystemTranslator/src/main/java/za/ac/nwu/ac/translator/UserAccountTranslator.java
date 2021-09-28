@@ -8,9 +8,7 @@ public interface UserAccountTranslator {
 
     UserAccountDto create(UserAccountDto userAccount);
 
-    UserAccountDto updateUserAccount(long memberID, long accountTypeID, long accountBalance);
+    UserAccountDto updateUserAccount(long memberID, long accountTypeID, int transactionAmount);
 
-    default UserAccountDto getUserByMemberIDandMnemonic(Long memberID, Long accountTypeID) {
-        return null;
-    }
+    UserAccountDto getUserByMemberIDandAccountTypeID(Long memberID, Long accountTypeID);
 }
