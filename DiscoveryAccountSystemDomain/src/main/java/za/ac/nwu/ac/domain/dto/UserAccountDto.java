@@ -8,6 +8,8 @@ import za.ac.nwu.ac.domain.persistence.UserAccount;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
+//import com.sun.org.apache.xpath.internal.operations.String;
 //TODO: (Optional) add mnemonic search functionality for adding account
 @ApiModel(value = "UserAccount",
             description = "This DTO represents the UserAccount")
@@ -24,6 +26,18 @@ public class UserAccountDto implements Serializable {
     public UserAccountDto() {
     }
 
+//    public UserAccountDto(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
+//        this.memberID = memberID;
+//        this.accountTypeID = accountTypeID;
+//        this.accountBalance = accountBalance;
+//        this.creationDate = creationDate;
+//    }
+//    public UserAccountDto(String memberID, String accountTypeID, Integer accountBalance, LocalDate creationDate) {
+//        this.memberID =Long.parseLong( memberID);
+//        this.accountTypeID = Long.parseLong(accountTypeID);
+//        this.accountBalance = accountBalance;
+//        this.creationDate = creationDate;
+//    }
     public UserAccountDto(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
         this.memberID = memberID;
         this.accountTypeID = accountTypeID;
@@ -32,7 +46,10 @@ public class UserAccountDto implements Serializable {
     }
 
     public UserAccountDto(UserAccount userAccount){
-
+        this.memberID = userAccount.getMemberID();
+        this.accountTypeID =userAccount.getAccountTypeID();
+        this.accountBalance =userAccount.getAccountBalance();
+        this.creationDate = userAccount.getCreationDate();
     }
 
     @ApiModelProperty(
@@ -40,7 +57,7 @@ public class UserAccountDto implements Serializable {
             value = "UserAccount MemberID",
             name = "MemberID",
             notes = "Unique Member ID for the Member that owns the account",
-            dataType = "java.lang.Long",
+            dataType = "java.lang.String",
             example ="100000000000001",
             required = true)
     public Long getMemberID() {
@@ -56,7 +73,7 @@ public class UserAccountDto implements Serializable {
             value = "UserAccount AccountType",
             name = "AccountTypeID",
             notes = "The AccountTypeID for the specific AccountType",
-            dataType = "java.lang.Long",
+            dataType = "java.lang.String",
             example = "100000000000003",
             required = true
     )
@@ -121,7 +138,7 @@ public class UserAccountDto implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "UserAccountDto{" +
                 "memberID=" + memberID +
                 ", accountTypeID=" + accountTypeID +

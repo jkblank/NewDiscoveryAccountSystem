@@ -30,6 +30,23 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
         }
     }
 
+    @Override
+    public UserAccountDto updateUserAccount(long memberID, long accountTypeID, long accountBalance) {
+        return null;
+        //ToDo: Create UpdateUserAccount
+    }
+
+    @Override
+    public UserAccountDto getUserByMemberIDandMnemonic(Long memberID, Long accountTypeID) {
+        try{
+            UserAccount userAccount=userAccountRepository.getUserByMemberIDandMnemonic(memberID, accountTypeID);
+            return new UserAccountDto(userAccount);
+        }catch (Exception e){
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+        //ToDo: Create GetUserByMemberIDandAccountTypeID
+    }
+
 //    @Override
 //    public UserAccountDto getUserByMemberIDandMnemonic(String memberID, String mnemonic){
 //        try{

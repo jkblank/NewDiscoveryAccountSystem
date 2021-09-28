@@ -17,9 +17,6 @@ public class UserAccount implements Serializable {
     private Integer accountBalance;
     private LocalDate creationDate;
 
-    public UserAccount() {
-    }
-
     public UserAccount(Long userAccountID, Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
         this.userAccountID = userAccountID;
         this.memberID = memberID;
@@ -27,15 +24,12 @@ public class UserAccount implements Serializable {
         this.accountBalance = accountBalance;
         this.creationDate = creationDate;
     }
-
     public UserAccount(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
         this.memberID = memberID;
         this.accountTypeID = accountTypeID;
         this.accountBalance = accountBalance;
         this.creationDate = creationDate;
     }
-
-
 
     @Id
     @SequenceGenerator(name = "SEQ_USER_ACCOUNT_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_USER_ACCOUNT_ID")
@@ -50,7 +44,7 @@ public class UserAccount implements Serializable {
         this.userAccountID = userAccountID;
     }
 
-
+//ToDo: if adding Member entity, add join to member class
     @Column(name = "MEMBER_ID")
     public Long getMemberID() {
         return memberID;
@@ -103,7 +97,7 @@ public class UserAccount implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "UserAccount{" +
                 "userAccountID=" + userAccountID +
                 ", memberID=" + memberID +

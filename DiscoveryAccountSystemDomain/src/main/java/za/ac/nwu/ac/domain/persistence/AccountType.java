@@ -40,8 +40,10 @@ public class AccountType implements Serializable{
     @SequenceGenerator(name= "SEQ_ACC_TYPE_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_ACC_TYPE_ID", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ACC_TYPE_ID")
     //one to many, and targets the Persistence type in the mapped by field
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "AccountTransaction", orphanRemoval = true, cascade=CascadeType.PERSIST)
-    @JoinColumn (name="ACCOUNT_TYPE_ID")
+//    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "AccountTransaction", orphanRemoval = true, cascade=CascadeType.PERSIST)
+   @Column (name="ACCOUNT_TYPE_ID")
+    //ToDo: Fix OneToMany, it's broken
+    // Commented out to test GetUserAccount
     public Long getAccountTypeID() {
         return accountTypeID;
     }

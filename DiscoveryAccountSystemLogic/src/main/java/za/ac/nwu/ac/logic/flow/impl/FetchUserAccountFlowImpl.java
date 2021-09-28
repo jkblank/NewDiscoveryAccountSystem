@@ -1,6 +1,7 @@
 package za.ac.nwu.ac.logic.flow.impl;
 
 import org.springframework.stereotype.Component;
+import za.ac.nwu.ac.domain.dto.UserAccountDto;
 import za.ac.nwu.ac.logic.flow.FetchUserAccountFlow;
 import za.ac.nwu.ac.translator.UserAccountTranslator;
 
@@ -15,8 +16,10 @@ public class FetchUserAccountFlowImpl implements FetchUserAccountFlow {
         this.userAccountTranslator = userAccountTranslator;
     }
 
-//    @Override
-//    public UserAccountDto getUserByMemberIDandMnemonic(String memberID, String mnemonic) {
-//        return userAccountTranslator.getUserByMemberIDandMnemonic(memberID, mnemonic);
-//    }
+    @Override
+    public UserAccountDto getUserByMemberIDandAccountID(Long memberID, Long accountTypeID) {
+        return userAccountTranslator.getUserByMemberIDandMnemonic(memberID, accountTypeID);
+    }
+
+
 }

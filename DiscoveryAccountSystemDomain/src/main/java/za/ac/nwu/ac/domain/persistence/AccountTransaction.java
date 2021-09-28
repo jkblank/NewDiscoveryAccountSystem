@@ -54,7 +54,7 @@ public class AccountTransaction implements Serializable {
         this.transactionID = transactionID;
     }
 
-    @ManyToOne/*(targetEntity = AccountType.class,fetch = FetchType.LAZY)*/
+//    @ManyToOne/*(targetEntity = AccountType.class,fetch = FetchType.LAZY)*/
     @JoinColumn(name ="ACCOUNT_TYPE_ID")
     public long getAccountTypeID() {
         return accountTypeID;

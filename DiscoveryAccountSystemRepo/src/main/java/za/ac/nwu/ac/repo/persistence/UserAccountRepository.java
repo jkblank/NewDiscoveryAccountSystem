@@ -27,4 +27,14 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
     //Query for rollback if exception is caught
     @Query(value = "ROLLBACK TO SAVEPOINT SAVEHERE",nativeQuery = true)
     void rollbackDB();
+
+    @Query(value = "SELECT "+
+            "ua "+
+            "FROM " +
+            "UserAccount ua " +
+            "WHERE " +
+            "ua.memberID = :memberID " +
+            "AND ua.accountTypeID = :accountTypeID")
+    UserAccount getUserByMemberIDandMnemonic(Long memberID, Long accountTypeID);
+
 }
