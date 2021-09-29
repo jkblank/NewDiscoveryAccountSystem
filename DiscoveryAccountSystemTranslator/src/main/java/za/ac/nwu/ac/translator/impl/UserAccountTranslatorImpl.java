@@ -39,12 +39,13 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     // Need to call from the transaction.
     // Need to create rollback point, create transaction,
     //      then run update, then commit/rollback
+
     @Override
-    public UserAccountDto updateUserAccount(long memberID, long accountTypeID, int TransactionAmount) {
+    public UserAccountDto updateUserAccount(Integer TransactionAmount, Long memberID, Long accountTypeID) {
 
         try{
-            int newAccountBalance=0;
-
+            Integer newAccountBalance= new Integer(0);
+        //ToDo: check if current value  is more than substract value
             AccountTransactionDto accountTransaction = accountTransactionTranslator.create(new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
 
             //accountTransaction.getAmount();
@@ -53,7 +54,7 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
             // then pass to updateUserAccount(long memberID, long accountTypeID, int newAccountBalance)
             newAccountBalance+=TransactionAmount;
 
-            UserAccount userAccount = userAccountRepository.updateUserAccount(memberID, accountTypeID, newAccountBalance);
+            UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
             return new UserAccountDto(userAccount);
         }catch (Exception e){
             throw new RuntimeException("Unable to update DB", e);

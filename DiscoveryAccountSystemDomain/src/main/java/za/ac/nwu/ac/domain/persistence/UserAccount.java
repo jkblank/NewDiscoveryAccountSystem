@@ -35,7 +35,6 @@ public class UserAccount implements Serializable {
     @SequenceGenerator(name = "SEQ_USER_ACCOUNT_ID", sequenceName = "DISCOVERYSYSTEM.SEQ_USER_ACCOUNT_ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_ACCOUNT_ID")
     @Column(name = "USER_ACCOUNT_ID")
-
     public Long getUserAccountID() {
         return userAccountID;
     }

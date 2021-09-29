@@ -17,8 +17,8 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
     }
 
     @Override
-    public UserAccountDto updateUserAccount(long memberID, long accountTypeID, int transactionAmount){
-        return userAccountTranslator.updateUserAccount(memberID, accountTypeID, transactionAmount);
+    public UserAccountDto updateUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
+        return userAccountTranslator.updateUserAccount(transactionAmount, memberID, accountTypeID);
     }
 
 }

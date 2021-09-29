@@ -8,7 +8,7 @@ public interface UserAccountTranslator {
 
     UserAccountDto create(UserAccountDto userAccount);
 
-    UserAccountDto updateUserAccount(long memberID, long accountTypeID, int transactionAmount);
+    UserAccountDto updateUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
 
     UserAccountDto getUserByMemberIDandAccountTypeID(Long memberID, Long accountTypeID);
 }

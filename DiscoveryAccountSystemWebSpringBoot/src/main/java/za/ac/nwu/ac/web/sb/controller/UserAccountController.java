@@ -71,7 +71,7 @@ public class UserAccountController {
 
         }
 
-    @PutMapping("{MEMBER_ID}/{ACCOUNT_TYPE_ID}/{ACCOUNT_BALANCE}")
+    @PutMapping("{ACCOUNT_BALANCE}/{MEMBER_ID}/{ACCOUNT_TYPE_ID}")
     @ApiOperation(value = "",
             notes = "")
     @ApiResponses(value = {
@@ -80,6 +80,11 @@ public class UserAccountController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
     })
     public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
+            @ApiParam(value="Transaction Value",
+                    name="Value of transaction",
+                    example = "600",
+                    required = true)
+            @PathVariable("ACCOUNT_BALANCE") final  Integer ACCOUNT_BALANCE,
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
             name = "Member 1",
             example = "1000000001",
@@ -89,13 +94,9 @@ public class UserAccountController {
             name="Currency AccountTypeID",
             example = "1000000001",
             required = true)
-            @PathVariable("ACCOUNT_TYPE_ID") final Long ACCOUNT_TYPE_ID,
-            @ApiParam(value="Transaction Value",
-            name="Value of transaction",
-            example = "600",
-            required = true)
-            @PathVariable("ACCOUNT_BALANCE") final  int ACCOUNT_BALANCE){
-        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(MEMBER_ID,ACCOUNT_TYPE_ID ,ACCOUNT_BALANCE);
+            @PathVariable("ACCOUNT_TYPE_ID") final Long ACCOUNT_TYPE_ID
+            ){
+        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(ACCOUNT_BALANCE, MEMBER_ID, ACCOUNT_TYPE_ID);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

@@ -40,12 +40,14 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 
 
     @Modifying
-    @Query(value = "update " +
-            "UserAccount ua " +
-            "set ua.ACCOUNT_BALANCE = :ACCOUNT_BALANCE " +
-            "where ua.MEMBER_ID = :MEMBER_ID " +
-            "and ua.ACCOUNT_TYPE_ID = :ACCOUNT_TYPE_ID")
-    UserAccount updateUserAccount(long MEMBER_ID, long ACCOUNT_TYPE_ID, int ACCOUNT_BALANCE);
+//    @Query(value = "UPDATE " +
+//            "UserAccount ua " +
+//            "SET ua.ACCOUNT_BALANCE = :ACCOUNT_BALANCE " +
+//            "WHERE ua.MEMBER_ID = :MEMBER_ID " +
+//            "AND ua.ACCOUNT_TYPE_ID = :ACCOUNT_TYPE_ID")
+    @Query(value = "SAVEPOINT SAVEHERE",nativeQuery = true)
+    UserAccount updateUserAccount(Integer ACCOUNT_BALANCE, Long MEMBER_ID, Long ACCOUNT_TYPE_ID);
+    //Todo: Fix this shit
 }
 
 //ToDo: AccountTypeID cannot be called from within UserAccount.
