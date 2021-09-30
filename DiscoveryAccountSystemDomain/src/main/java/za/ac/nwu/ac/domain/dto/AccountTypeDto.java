@@ -18,9 +18,11 @@ public class AccountTypeDto implements Serializable {
 
     private static final long serialVersionUID = -7731154715176897719L;
 
+    private Long accountTypeID;
     private String mnemonic;
     private String accountTypeName;
     private LocalDate creationDate;
+    private String stringCreationDate;
 
     public AccountTypeDto(){
     }
@@ -30,6 +32,22 @@ public class AccountTypeDto implements Serializable {
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
     }
+
+    public AccountTypeDto(Long accountTypeID, String mnemonic, String accountTypeName, LocalDate creationDate) {
+        this.accountTypeID = accountTypeID;
+        this.mnemonic = mnemonic;
+        this.accountTypeName = accountTypeName;
+        this.creationDate = creationDate;
+//        this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+    }
+//    public AccountTypeDto(Long accountTypeID, String mnemonic, String accountTypeName, String creationDate) {
+//        this.accountTypeID = accountTypeID;
+//        this.mnemonic = mnemonic;
+//        this.accountTypeName = accountTypeName;
+//        this.stringCreationDate = creationDate;
+////        this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//    }
 
     public AccountTypeDto(AccountType accountType){
         this.setMnemonic(accountType.getMnemonic());
@@ -84,6 +102,15 @@ public class AccountTypeDto implements Serializable {
         this.creationDate = creationDate;
     }
 
+    @JsonIgnore
+    public Long getAccountTypeID() {
+        return accountTypeID;
+    }
+    @JsonIgnore
+    public void setAccountTypeID(Long accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,6 +123,14 @@ public class AccountTypeDto implements Serializable {
     public AccountType getAccountType(){
         return new AccountType(getMnemonic(),getAccountTypeName(), getCreationDate());
     }
+//    @JsonIgnore
+//    public String getStringCreationDate() {
+//        return stringCreationDate;
+//    }
+//    @JsonIgnore
+//    public void setStringCreationDate(String stringCreationDate) {
+//        this.stringCreationDate = stringCreationDate;
+//    }
 
     @Override
     public int hashCode() {
@@ -110,4 +145,6 @@ public class AccountTypeDto implements Serializable {
                 ", creationDate=" + creationDate +
                 '}';
     }
+
+
 }

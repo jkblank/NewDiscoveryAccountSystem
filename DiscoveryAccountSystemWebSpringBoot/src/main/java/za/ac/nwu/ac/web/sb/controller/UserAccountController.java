@@ -89,12 +89,12 @@ public class UserAccountController {
             name = "Member 1",
             example = "1000000001",
             required = true)
-            @PathVariable("MEMBER_ID") final Long MEMBER_ID,
+            @RequestParam("MEMBER_ID") final Long MEMBER_ID,
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
             name="Currency AccountTypeID",
             example = "1000000001",
             required = true)
-            @PathVariable("ACCOUNT_TYPE_ID") final Long ACCOUNT_TYPE_ID
+            @RequestParam("ACCOUNT_TYPE_ID") final Long ACCOUNT_TYPE_ID
             ){
         UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(ACCOUNT_BALANCE, MEMBER_ID, ACCOUNT_TYPE_ID);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);

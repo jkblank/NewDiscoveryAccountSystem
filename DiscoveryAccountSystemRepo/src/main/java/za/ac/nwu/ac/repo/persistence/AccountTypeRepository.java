@@ -1,10 +1,14 @@
 package za.ac.nwu.ac.repo.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import za.ac.nwu.ac.domain.dto.AccountTypeDto;
 import za.ac.nwu.ac.domain.persistence.AccountType;
+
+import java.time.LocalDate;
 
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
@@ -48,7 +52,26 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
     @Query(value = "ROLLBACK TO SAVEPOINT SAVEHERE",nativeQuery = true)
     void rollbackDB();
 
-//    @Query(value = "SELECT"+
+    //ToDo: fix delete
+    @Modifying
+    @Query(value = "DELETE FROM "+
+            "           AccountType at"+
+            "           WHERE at.mnemonic = :mnemonic ")
+    void deleteAccountTypeByMnemonic( String mnemonic);
+
+//ToDO: fix the updateAccountType function
+
+    @Modifying
+    @Query(value = "Update " +
+            "AccountType at " +
+            "set " +
+            "at.accountTypeName = :newAccountTypeName, " +
+            "at.creationDate = :newCreationDate " +
+            "where " +
+            "at.mnemonic = :mnemonic")
+    void updateAccountType(String mnemonic, String newAccountTypeName, @Param("newCreationDate") LocalDate newCreationDate);
+
+//    @Query(value = "DELETE"+
 //            "           at.account_type_id "+
 //            "           FROM "+
 //            "           AccountType at"+

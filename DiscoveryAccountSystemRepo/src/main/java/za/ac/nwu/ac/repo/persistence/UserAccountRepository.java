@@ -47,7 +47,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
 //            "AND ua.ACCOUNT_TYPE_ID = :ACCOUNT_TYPE_ID")
     @Query(value = "SAVEPOINT SAVEHERE",nativeQuery = true)
     UserAccount updateUserAccount(Integer ACCOUNT_BALANCE, Long MEMBER_ID, Long ACCOUNT_TYPE_ID);
-    //Todo: Fix this shit
+    //Todo: Fix this shit - pass a DTO
 }
 
 //ToDo: AccountTypeID cannot be called from within UserAccount.
