@@ -9,6 +9,7 @@ import za.ac.nwu.ac.repo.persistence.UserAccountRepository;
 import za.ac.nwu.ac.translator.AccountTransactionTranslator;
 import za.ac.nwu.ac.translator.UserAccountTranslator;
 
+
 @Component
 public class UserAccountTranslatorImpl implements UserAccountTranslator {
 
@@ -34,8 +35,8 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
         }
     }
 
-    //ToDo: Create UpdateUserAccount
-    //ToDo: AccountTypeID cannot be called from within UserAccount.
+    //ToDo: Fix UpdateUserAccount
+    //ToDo: AccountTypeID cannot be called from within UserAccount.!!
     // Need to call from the transaction.
     // Need to create rollback point, create transaction,
     //      then run update, then commit/rollback
@@ -44,16 +45,23 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     public UserAccountDto updateUserAccount(Integer TransactionAmount, Long memberID, Long accountTypeID) {
 
         try{
+
+            Integer oldAccountBalance= new Integer(0);
             Integer newAccountBalance= new Integer(0);
-        //ToDo: check if current value  is more than substract value
+
             AccountTransactionDto accountTransaction = accountTransactionTranslator.create(new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
 
             //accountTransaction.getAmount();
-            newAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            //ToDo: check if current value  is more than substract value
             //get current account val and add transaction value and
-            // then pass to updateUserAccount(long memberID, long accountTypeID, int newAccountBalance)
-            newAccountBalance+=TransactionAmount;
+            if( (Math.abs(TransactionAmount) <= oldAccountBalance)){
 
+                newAccountBalance = TransactionAmount + oldAccountBalance;
+            }else{
+                //ToDo some catch or some shit
+            }
+            // then pass to updateUserAccount(long memberID, long accountTypeID, int newAccountBalance)
             UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
             return new UserAccountDto(userAccount);
         }catch (Exception e){

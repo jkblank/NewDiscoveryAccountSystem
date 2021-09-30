@@ -77,4 +77,12 @@ public class AccountTypeController {
         GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true, accountType);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    //ToDo: deleteAccountType
+
+    //ToDo: updateAccountType
+
+    //ToDo: updateAccountTypeWithNoOptionalDate
+
+    //ToDo: updateAccountTypeObitMandatory()
 }

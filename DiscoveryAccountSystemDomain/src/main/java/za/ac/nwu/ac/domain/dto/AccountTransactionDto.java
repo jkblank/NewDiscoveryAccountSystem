@@ -29,7 +29,7 @@ public class AccountTransactionDto implements Serializable {
         //this.accountTypeMnemonic = accountTypeMnemonic;
         this.accountTypeID = accountTypeID;
         this.amount = amount;
-        this.txDateTime = txDateTime;
+        this.txDateTime = LocalDateTime.now();
     }
 
     public AccountTransactionDto(AccountTransaction accountTransaction) {
