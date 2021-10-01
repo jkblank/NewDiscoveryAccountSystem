@@ -1,7 +1,7 @@
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\impl\AccountTypeTranslatorImpl.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\AccountTypeTranslator.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\AccountTransactionTranslator.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\UserAccountTranslator.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\impl\AccountTransactionTranslatorImpl.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\impl\UserAccountTranslatorImpl.java
-C:\DO\nwu\repo\DiscoveryAccountSystem\DiscoveryAccountSystemTranslator\src\main\java\za\ac\nwu\ac\translator\config\TranslatorConfig.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/impl/UserAccountTranslatorImpl.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/UserAccountTranslator.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/impl/AccountTransactionTranslatorImpl.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/impl/AccountTypeTranslatorImpl.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/AccountTransactionTranslator.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/AccountTypeTranslator.java
+/home/johnk/IdeaProjects/NewDiscoveryAccountSystem/DiscoveryAccountSystemTranslator/src/main/java/za/ac/nwu/ac/translator/config/TranslatorConfig.java

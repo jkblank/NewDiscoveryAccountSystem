@@ -25,6 +25,7 @@
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <swagger.version>1.5.20</swagger.version>
 <!--        <springfox-bean.version>2.4.5</springfox-bean.version>-->
+        <haltOnFailure>false</haltOnFailure> <!--ToDO: change  to true-->
     </properties>
 
     <modules>
@@ -113,7 +114,66 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>2.1.6.RELEASE</version>
                 </plugin>
+                <plugin>                                <!--Plugin for jacoco to check code coverage-->
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.3</version>
+                    <configuration>
+                        <!--TODO: Use: "mvn clean install -DhaltOnFailure=false" to continue builds-->
+                        <haltOnFailure>${haltOnFailure}</haltOnFailure>
+                        <rules>
+                            <rule>
+                                <element>CLASS</element>
+                                <excludes>
+                                    <exclude>za.ac.nwu.ac.domain.dto.*</exclude>
+                                    <exclude>za.ac.nwu.ac.logic.config.LogicConfig</exclude>
+                                    <exclude>za.ac.nwu.ac.repo.config.RepositoryConfig</exclude>
+                                </excludes>
+                                <limits>
+                                    <limit>
+                                        <counter>INSTRUCTION</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                    <limit>
+                                        <counter>BRANCH</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>0.8</minimum>
+                                    </limit>
+                                </limits>
+                            </rule>
+                        </rules>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>jacoco-check</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>default-report</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
+
         </pluginManagement>
     </build>
 </project>
