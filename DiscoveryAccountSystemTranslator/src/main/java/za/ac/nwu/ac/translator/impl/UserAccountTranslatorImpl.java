@@ -9,6 +9,8 @@ import za.ac.nwu.ac.repo.persistence.UserAccountRepository;
 import za.ac.nwu.ac.translator.AccountTransactionTranslator;
 import za.ac.nwu.ac.translator.UserAccountTranslator;
 
+import javax.transaction.Transactional;
+
 
 @Component
 public class UserAccountTranslatorImpl implements UserAccountTranslator {
@@ -42,24 +44,23 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     //      then run update, then commit/rollback
 
     @Override
+    @Transactional
     public UserAccountDto updateUserAccount(Integer TransactionAmount, Long memberID, Long accountTypeID) {
 
         try{
-
             Integer oldAccountBalance= new Integer(0);
             Integer newAccountBalance= new Integer(0);
 
-            AccountTransactionDto accountTransaction = accountTransactionTranslator.create(new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
-
-            //accountTransaction.getAmount();
-            oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
             //ToDo: check if current value  is more than substract value
-            //get current account val and add transaction value and
-            if( (Math.abs(TransactionAmount) <= oldAccountBalance)){
 
+            if( (Math.abs(TransactionAmount) <= oldAccountBalance && TransactionAmount <= oldAccountBalance )){
+                AccountTransactionDto accountTransaction = accountTransactionTranslator.create(
+                        new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
+                oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
                 newAccountBalance = TransactionAmount + oldAccountBalance;
             }else{
                 //ToDo some catch or some shit
+                throw new RuntimeException("Cannot Subtract more currency that you own!");
             }
             // then pass to updateUserAccount(long memberID, long accountTypeID, int newAccountBalance)
             UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);

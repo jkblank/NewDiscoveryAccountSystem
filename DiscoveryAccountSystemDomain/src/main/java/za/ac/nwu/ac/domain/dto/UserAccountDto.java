@@ -9,8 +9,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-//import com.sun.org.apache.xpath.internal.operations.String;
+
 //TODO: (Optional) add mnemonic search functionality for adding account
+//avoid duplicates
 @ApiModel(value = "UserAccount",
             description = "This DTO represents the UserAccount")
 
@@ -26,18 +27,6 @@ public class UserAccountDto implements Serializable {
     public UserAccountDto() {
     }
 
-//    public UserAccountDto(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
-//        this.memberID = memberID;
-//        this.accountTypeID = accountTypeID;
-//        this.accountBalance = accountBalance;
-//        this.creationDate = creationDate;
-//    }
-//    public UserAccountDto(String memberID, String accountTypeID, Integer accountBalance, LocalDate creationDate) {
-//        this.memberID =Long.parseLong( memberID);
-//        this.accountTypeID = Long.parseLong(accountTypeID);
-//        this.accountBalance = accountBalance;
-//        this.creationDate = creationDate;
-//    }
     public UserAccountDto(Long memberID, Long accountTypeID, Integer accountBalance, LocalDate creationDate) {
         this.memberID = memberID;
         this.accountTypeID = accountTypeID;

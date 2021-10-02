@@ -12,6 +12,7 @@ import java.time.LocalDate;
 
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
+
     @Query(value = "Select " +
     "           ACCOUNT_TYPE_ID,"+
     "           ACCOUNT_TYPE_NAME, "+
@@ -71,10 +72,4 @@ public interface AccountTypeRepository extends JpaRepository<AccountType, Long> 
             "at.mnemonic = :mnemonic")
     void updateAccountType(String mnemonic, String newAccountTypeName, @Param("newCreationDate") LocalDate newCreationDate);
 
-//    @Query(value = "DELETE"+
-//            "           at.account_type_id "+
-//            "           FROM "+
-//            "           AccountType at"+
-//            "           WHERE at.mnemonic = :mnemonic ")
-//    String getAccountTypeAccountTypeIDByMnemonic(String accountTypeId);
 }

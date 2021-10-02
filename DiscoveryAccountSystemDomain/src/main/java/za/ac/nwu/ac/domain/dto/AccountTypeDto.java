@@ -1,5 +1,3 @@
-//ToDo Create UserDto
-//ToDO Modify the dto to accept a memberID Parameter
 package za.ac.nwu.ac.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,23 +36,14 @@ public class AccountTypeDto implements Serializable {
         this.mnemonic = mnemonic;
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
-//        this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
     }
-//    public AccountTypeDto(Long accountTypeID, String mnemonic, String accountTypeName, String creationDate) {
-//        this.accountTypeID = accountTypeID;
-//        this.mnemonic = mnemonic;
-//        this.accountTypeName = accountTypeName;
-//        this.stringCreationDate = creationDate;
-////        this.creationDate = LocalDate.parse(creationDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//    }
-
     public AccountTypeDto(AccountType accountType){
         this.setMnemonic(accountType.getMnemonic());
         this.setAccountTypeName(accountType.getAccountTypeName());
         this.setCreationDate(accountType.getCreationDate());
     }
-@ApiModelProperty(position = 1,
+
+    @ApiModelProperty(position = 1,
             value = "AccountType Mnemonic",
             name = "Mnemonic",
             notes = "Uniquely identifies the Account Type",
@@ -123,14 +112,6 @@ public class AccountTypeDto implements Serializable {
     public AccountType getAccountType(){
         return new AccountType(getMnemonic(),getAccountTypeName(), getCreationDate());
     }
-//    @JsonIgnore
-//    public String getStringCreationDate() {
-//        return stringCreationDate;
-//    }
-//    @JsonIgnore
-//    public void setStringCreationDate(String stringCreationDate) {
-//        this.stringCreationDate = stringCreationDate;
-//    }
 
     @Override
     public int hashCode() {

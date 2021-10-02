@@ -111,6 +111,7 @@ public class AccountTypeController {
             @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+
     public ResponseEntity<GeneralResponse<AccountTypeDto>> updateAccountType(
             @ApiParam(value = "Mnemonic that uniquely identifies the AccountType.",
                     example = "MILES",
@@ -129,15 +130,18 @@ public class AccountTypeController {
             @RequestParam(value ="newCreationDate", required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                 LocalDate newCreationDate){
+//ToDo: if date ="today
         AccountTypeDto tempDto = fetchAccountTypeFlow.getAccountTypeByMnemonic(mnemonic);
-        if(null==newCreationDate || ""==newCreationDate.toString()){
+        if(null==newCreationDate){
             newCreationDate = tempDto.getCreationDate();
         }
-        else{
-            newCreationDate=LocalDate.now();
-        }
+//        else{
+//            newCreationDate=LocalDate.now();
+//        }
         AccountTypeDto accountType = new AccountTypeDto(mnemonic, newAccountTypeName, newCreationDate);
+
         AccountTypeDto accountTypeResponse = modifyAccountTypeFlow.updateAccountType(accountType);
+
         GeneralResponse<AccountTypeDto> response = new GeneralResponse<>(true, accountTypeResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

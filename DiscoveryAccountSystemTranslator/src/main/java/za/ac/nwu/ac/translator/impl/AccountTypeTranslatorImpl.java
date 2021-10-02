@@ -20,6 +20,7 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
         this.accountTypeRepository=accountTypeRepository;
     }
 
+    @Transactional
     @Override
     public List<AccountTypeDto> getAllAccountTypes(){
         List<AccountTypeDto> accountTypeDtos = new ArrayList<>();
@@ -34,15 +35,13 @@ public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
         }
         return  accountTypeDtos;
     }
+    @Transactional
     @Override
     public AccountTypeDto create(AccountTypeDto accountTypeDto){
         try{
-//            accountTypeRepository.createSavePoint();
             AccountType accountType = accountTypeRepository.save(accountTypeDto.getAccountType());
-//            accountTypeRepository.commitDB();
             return new AccountTypeDto(accountType);
         }catch (Exception e){
-//            accountTypeRepository.rollbackDB();
             throw  new RuntimeException("Unable to save to the DB", e);
         }
     }
