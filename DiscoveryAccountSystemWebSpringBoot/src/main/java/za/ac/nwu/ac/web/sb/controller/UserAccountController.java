@@ -37,6 +37,7 @@ public class UserAccountController {
     public ResponseEntity<GeneralResponse<UserAccountDto>> create(
             @ApiParam(value = "Request body to create a new User Account", required = true)
             @RequestBody UserAccountDto userAccount ){
+        //ToDO: add if checks to ensure values are added
         UserAccountDto userAccountResponse = createUserAccountFlow.create(userAccount);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccountResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -58,6 +59,7 @@ public class UserAccountController {
             example = "100000000000001",
             required = true)
             @PathVariable("memberID")final Long memberID,
+
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
                     name = "Currency AccountID",
 //                    type = "Long",
@@ -65,14 +67,15 @@ public class UserAccountController {
                     required = true)
             @PathVariable("accountTypeID") final Long accountTypeID){
 //        UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(Long.toString(memberID), Long.toString(accountTypeID));
+        //ToDO: add if checks to ensure values are added
         UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(memberID , accountTypeID);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
         }
 
-    @PutMapping("{ACCOUNT_BALANCE}/{MEMBER_ID}/{ACCOUNT_TYPE_ID}")
-    @ApiOperation(value = "",
+    @PutMapping("{transactionValue}")
+    @ApiOperation(value = "Updates a UserAccount with the value of a transaction",
             notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
@@ -84,19 +87,21 @@ public class UserAccountController {
                     name="Value of transaction",
                     example = "600",
                     required = true)
-            @PathVariable("ACCOUNT_BALANCE") final  Integer ACCOUNT_BALANCE,
+            @PathVariable("transactionValue") final  String transactionValue,
+
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
             name = "Member 1",
-            example = "1000000001",
-            required = true)
-            @RequestParam("MEMBER_ID") final Long MEMBER_ID,
+            example = "1000000001")
+            @RequestParam("memberID") final Long memberID,
+
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
             name="Currency AccountTypeID",
             example = "1000000001",
             required = true)
-            @RequestParam("ACCOUNT_TYPE_ID") final Long ACCOUNT_TYPE_ID
+            @RequestParam("accountTypeID") final Long accountTypeID
             ){
-        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(ACCOUNT_BALANCE, MEMBER_ID, ACCOUNT_TYPE_ID);
+        //ToDO: add if checks to ensure values are added
+        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(Integer.parseInt(transactionValue),memberID , accountTypeID);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

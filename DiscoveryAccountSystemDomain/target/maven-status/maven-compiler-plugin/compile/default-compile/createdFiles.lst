@@ -1,7 +1,7 @@
-za/ac/nwu/ac/domain/persistence/AccountTransaction.class
-za/ac/nwu/ac/domain/persistence/UserAccount.class
-za/ac/nwu/ac/domain/persistence/AccountType.class
-za/ac/nwu/ac/domain/dto/AccountTransactionDto.class
-za/ac/nwu/ac/domain/dto/UserAccountDto.class
-za/ac/nwu/ac/domain/service/GeneralResponse.class
-za/ac/nwu/ac/domain/dto/AccountTypeDto.class
+za\ac\nwu\ac\domain\dto\AccountTypeDto.class
+za\ac\nwu\ac\domain\dto\UserAccountDto.class
+za\ac\nwu\ac\domain\persistence\UserAccount.class
+za\ac\nwu\ac\domain\dto\AccountTransactionDto.class
+za\ac\nwu\ac\domain\persistence\AccountTransaction.class
+za\ac\nwu\ac\domain\persistence\AccountType.class
+za\ac\nwu\ac\domain\service\GeneralResponse.class

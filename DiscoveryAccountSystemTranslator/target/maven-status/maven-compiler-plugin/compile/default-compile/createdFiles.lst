@@ -1,7 +1,7 @@
-za/ac/nwu/ac/translator/AccountTransactionTranslator.class
-za/ac/nwu/ac/translator/AccountTypeTranslator.class
-za/ac/nwu/ac/translator/impl/AccountTypeTranslatorImpl.class
-za/ac/nwu/ac/translator/config/TranslatorConfig.class
-za/ac/nwu/ac/translator/UserAccountTranslator.class
-za/ac/nwu/ac/translator/impl/AccountTransactionTranslatorImpl.class
-za/ac/nwu/ac/translator/impl/UserAccountTranslatorImpl.class
+za\ac\nwu\ac\translator\config\TranslatorConfig.class
+za\ac\nwu\ac\translator\AccountTypeTranslator.class
+za\ac\nwu\ac\translator\UserAccountTranslator.class
+za\ac\nwu\ac\translator\AccountTransactionTranslator.class
+za\ac\nwu\ac\translator\impl\UserAccountTranslatorImpl.class
+za\ac\nwu\ac\translator\impl\AccountTransactionTranslatorImpl.class
+za\ac\nwu\ac\translator\impl\AccountTypeTranslatorImpl.class

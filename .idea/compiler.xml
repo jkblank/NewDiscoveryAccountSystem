@@ -10,7 +10,6 @@
         <module name="DiscoveryAccountSystemDomain" />
         <module name="DiscoveryAccountSystemWeb" />
         <module name="DiscoveryAccountSystemLogic" />
-        <module name="DiscoveryAccountSystemTranslator" />
         <module name="DiscoveryAccountSystemTranslate" />
         <module name="DiscoveryAccountSystemWebSpringBoot" />
       </profile>

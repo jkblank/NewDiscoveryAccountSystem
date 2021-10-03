@@ -48,23 +48,22 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     public UserAccountDto updateUserAccount(Integer TransactionAmount, Long memberID, Long accountTypeID) {
 
         try{
-            Integer oldAccountBalance= new Integer(0);
-            Integer newAccountBalance= new Integer(0);
+            Integer oldAccountBalance= 0;
+            Integer newAccountBalance= 0;
 
             //ToDo: check if current value  is more than substract value
 
-            if( (Math.abs(TransactionAmount) <= oldAccountBalance && TransactionAmount <= oldAccountBalance )){
+            if( TransactionAmount + oldAccountBalance >=0 ){
                 AccountTransactionDto accountTransaction = accountTransactionTranslator.create(
                         new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
                 oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
                 newAccountBalance = TransactionAmount + oldAccountBalance;
+                UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+                return new UserAccountDto(userAccount);
             }else{
                 //ToDo some catch or some shit
                 throw new RuntimeException("Cannot Subtract more currency that you own!");
             }
-            // then pass to updateUserAccount(long memberID, long accountTypeID, int newAccountBalance)
-            UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
-            return new UserAccountDto(userAccount);
         }catch (Exception e){
             throw new RuntimeException("Unable to update DB", e);
         }
@@ -85,14 +84,4 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
 
     }
 
-//    @Override
-//    public UserAccountDto getUserByMemberIDandMnemonic(String memberID, String mnemonic){
-//        try{
-//            UserAccount userAccount = userAccountRepository.getUserByMemberIDandMnemonic(memberID, mnemonic);
-//            return new UserAccountDto(userAccount);
-//        }catch ( Exception e){
-//            throw new RuntimeException("Unable to read from the DB", e);
-//            //ToDo: New exception to be implemented here
-//        }
-//    }
 }
