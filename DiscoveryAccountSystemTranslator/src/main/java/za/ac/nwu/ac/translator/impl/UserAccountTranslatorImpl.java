@@ -52,12 +52,13 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
             Integer newAccountBalance= 0;
 
             //ToDo: check if current value  is more than substract value
-
+            oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            //ToDO: Move to Logic
             if( TransactionAmount + oldAccountBalance >=0 ){
                 AccountTransactionDto accountTransaction = accountTransactionTranslator.create(
-                        new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));
-                oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
-                newAccountBalance = TransactionAmount + oldAccountBalance;
+                        new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));//ToDO: Remove
+
+                newAccountBalance = TransactionAmount + oldAccountBalance;//ToDO: Move to Logic
                 UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
                 return new UserAccountDto(userAccount);
             }else{

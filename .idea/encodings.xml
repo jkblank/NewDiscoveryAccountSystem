@@ -5,6 +5,7 @@
     <file url="file://$PROJECT_DIR$/DiscoveryAccountSystemLogic/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DiscoveryAccountSystemRepo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DiscoveryAccountSystemTranslator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DiscoveryAccountSystemWeb/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/DiscoveryAccountSystemWebSpringBoot/src/main/java" charset="UTF-8" />
   </component>
 </project>

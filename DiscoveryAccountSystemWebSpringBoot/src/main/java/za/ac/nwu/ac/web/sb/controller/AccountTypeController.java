@@ -130,6 +130,7 @@ public class AccountTypeController {
             @RequestParam(value ="newCreationDate", required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                 LocalDate newCreationDate){
+
 //ToDo: if date ="today
         AccountTypeDto tempDto = fetchAccountTypeFlow.getAccountTypeByMnemonic(mnemonic);
         if(null==newCreationDate){
