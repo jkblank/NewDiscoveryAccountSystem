@@ -21,11 +21,11 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
     }
 
     @Transactional
-    @Override //Subtract
+    @Override
     public UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
         if(transactionAmount>0){
-            transactionAmount=transactionAmount*-1;
+            transactionAmount=transactionAmount * -1;
         }
         LOGGER.info("The UserAccount to Update has input values: " +
                 "\n\ttransactionAmount = {}" +
@@ -52,7 +52,7 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
     public UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
         if(transactionAmount<0){
-            transactionAmount=transactionAmount*-1;
+            transactionAmount=transactionAmount * -1;
         }
 
         LOGGER.info("The UserAccount to Update has input values: " +

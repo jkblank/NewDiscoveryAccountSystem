@@ -21,16 +21,16 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 <span class="nc" id="L21">    }</span>
 
     @Transactional
-    @Override //Subtract
+    @Override
     public UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
 <span class="nc bnc" id="L27" title="All 2 branches missed.">        if(transactionAmount&gt;0){</span>
-<span class="nc" id="L28">            transactionAmount=transactionAmount*-1;</span>
+<span class="nc" id="L28">            transactionAmount=transactionAmount * -1;</span>
         }
 <span class="nc" id="L30">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
-                &quot;\ntransactionAmount {}&quot; +
-                &quot;\nmemberID {}&quot; +
-                &quot;\naccountTypeID {}&quot;, transactionAmount,memberID,  accountTypeID);
+                &quot;\n\ttransactionAmount = {}&quot; +
+                &quot;\n\tmemberID = {}&quot; +
+                &quot;\n\taccountTypeID = {}&quot;, transactionAmount,memberID,  accountTypeID);
 
 <span class="nc" id="L35">        Integer oldAccountBalance= 0;</span>
 <span class="nc" id="L36">        Integer newAccountBalance= 0;</span>
@@ -52,13 +52,13 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
     public UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
 <span class="nc bnc" id="L54" title="All 2 branches missed.">        if(transactionAmount&lt;0){</span>
-<span class="nc" id="L55">            transactionAmount=transactionAmount*-1;</span>
+<span class="nc" id="L55">            transactionAmount=transactionAmount * -1;</span>
         }
 
 <span class="nc" id="L58">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
-                &quot;\ntransactionAmount {}&quot; +
-                &quot;\nmemberID {}&quot; +
-                &quot;\naccountTypeID {}&quot;, transactionAmount,memberID,  accountTypeID);
+                &quot;\n\ttransactionAmount = {}&quot; +
+                &quot;\n\tmemberID = {}&quot; +
+                &quot;\n\taccountTypeID = {}&quot;, transactionAmount,memberID,  accountTypeID);
 
 <span class="nc" id="L63">        Integer oldAccountBalance= 0;</span>
 <span class="nc" id="L64">        Integer newAccountBalance= 0;</span>

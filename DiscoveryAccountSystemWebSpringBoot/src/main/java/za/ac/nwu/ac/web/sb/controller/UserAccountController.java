@@ -60,21 +60,32 @@ public class UserAccountController {
     })
     public ResponseEntity<GeneralResponse<UserAccountDto>> getUserByMemberIDandAccountID(
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
-                    name = "Member 1",
+                    name = "memberID",
                     example = "100000000000001",
                     required = true)
-            @PathVariable("memberID")final Long memberID,
+            @PathVariable("memberID")final String memberID,
 
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
-                    name = "Currency AccountID",
+                    name = "accountTypeID",
                     example = "100000000000003",
                     required = true)
-            @PathVariable("accountTypeID") final Long accountTypeID){
+            @PathVariable("accountTypeID") final String accountTypeID){
 //ToDO: add if checks to ensure values are added
+        Long memberToPass = Long.valueOf(0);
+        Long accountToPass = Long.valueOf(0);
+
+        try{
+             memberToPass = Long.parseLong(memberID);
+             accountToPass = Long.parseLong(accountTypeID);
+
+        }catch(NumberFormatException e){
+            LOGGER.error("Parses Failed", e);
+        }
+
         LOGGER.info("Attempting to find User Account with properties: " +
                 "\nAccountTypeID = {}" +
                 "\nMemberID = {}",accountTypeID,memberID);
-        UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(memberID , accountTypeID);
+        UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(memberToPass , accountToPass);
         LOGGER.info("User Account with specified properties found.");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -110,7 +121,6 @@ public class UserAccountController {
                     required = true)
             @RequestParam("accountTypeID") final Long accountTypeID
             ){
-        //ToDO: add if checks to ensure values are added
 
         Integer intToPass =0;
         try{
@@ -154,7 +164,6 @@ public class UserAccountController {
                     required = true)
             @RequestParam("accountTypeID") final Long accountTypeID
     ){
-        //ToDO: add if checks to ensure values are added
 
         Integer intToPass =0;
         try{

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: za.ac.nwu.ac.logic.flow.impl.CreateAccountTypeFlowImplTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.648 s - in za.ac.nwu.ac.logic.flow.impl.CreateAccountTypeFlowImplTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.666 s - in za.ac.nwu.ac.logic.flow.impl.CreateAccountTypeFlowImplTest
