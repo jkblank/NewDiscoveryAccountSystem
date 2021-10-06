@@ -2,7 +2,6 @@ package za.ac.nwu.ac.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.ac.domain.dto.AccountTransactionDto;
 import za.ac.nwu.ac.domain.dto.UserAccountDto;
 import za.ac.nwu.ac.domain.persistence.UserAccount;
 import za.ac.nwu.ac.repo.persistence.UserAccountRepository;
@@ -27,12 +26,9 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     @Override
     public UserAccountDto create(UserAccountDto userAccountDto) {
         try{
-//            userAccountRepository.createSavePoint();
             UserAccount userAccount= userAccountRepository.save(userAccountDto.getUserAccount());
-//            userAccountRepository.commitDB();
             return new UserAccountDto(userAccount);
         }catch (Exception e){
-//            userAccountRepository.rollbackDB();
             throw  new RuntimeException("Unable to save to the DB", e);
         }
     }
@@ -55,11 +51,9 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
             oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
             //ToDO: Move to Logic
             if( TransactionAmount + oldAccountBalance >=0 ){
-                AccountTransactionDto accountTransaction = accountTransactionTranslator.create(
-                        new AccountTransactionDto(memberID, accountTypeID, TransactionAmount));//ToDO: Remove
-
                 newAccountBalance = TransactionAmount + oldAccountBalance;//ToDO: Move to Logic
-                UserAccount userAccount = userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+                UserAccount userAccount =new UserAccount(memberID, accountTypeID,newAccountBalance);
+                userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
                 return new UserAccountDto(userAccount);
             }else{
                 //ToDo some catch or some shit

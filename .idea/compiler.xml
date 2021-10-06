@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="DiscoveryAccountSystemRepo" />
-        <module name="DiscoveryAccountSystemDomain" />
-        <module name="DiscoveryAccountSystemWeb" />
         <module name="DiscoveryAccountSystemLogic" />
+        <module name="DiscoveryAccountSystemDomain" />
         <module name="DiscoveryAccountSystemTranslate" />
         <module name="DiscoveryAccountSystemWebSpringBoot" />
+        <module name="DiscoveryAccountSystemWeb" />
       </profile>
     </annotationProcessing>
   </component>

@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import za.ac.nwu.ac.logic.flow.ModifyUserAccountFlow;
 @RestController
 @RequestMapping("user-account")
 public class UserAccountController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountController.class);
+
     private final CreateUserAccountFlow createUserAccountFlow;
     private final FetchUserAccountFlow fetchUserAccountFlow;
     private final ModifyUserAccountFlow modifyUserAccountFlow;
@@ -86,24 +90,35 @@ public class UserAccountController {
     })
     public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
             @ApiParam(value="Transaction Value",
-                    name="Value of transaction",
+                    name="transactionValue",
                     example = "600",
                     required = true)
-            @PathVariable("transactionValue") final  String transactionValue,
+            @PathVariable("transactionValue") final String transactionValue,
 
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
-            name = "Member 1",
-            example = "1000000001")
+                    name = "memberID",
+                    example = "1000000001",
+                    required = true)
             @RequestParam("memberID") final Long memberID,
 
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
-            name="Currency AccountTypeID",
-            example = "1000000001",
-            required = true)
+                    name="accountTypeID",
+                    example = "1000000001",
+                    required = true)
             @RequestParam("accountTypeID") final Long accountTypeID
             ){
         //ToDO: add if checks to ensure values are added
-        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(Integer.parseInt(transactionValue),memberID , accountTypeID);
+        LOGGER.info("Length of Transaction Value {}",transactionValue.length());
+
+        Integer intToPass =0;
+        try{
+            intToPass =Integer.parseInt(transactionValue);
+        }catch (NumberFormatException e){
+            LOGGER.error("Parse Failed", e);
+        }
+            LOGGER.info("Value of Transaction Value {}",transactionValue);
+            LOGGER.info("Length of Transaction Value {}",transactionValue.length());
+        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(intToPass,memberID , accountTypeID);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

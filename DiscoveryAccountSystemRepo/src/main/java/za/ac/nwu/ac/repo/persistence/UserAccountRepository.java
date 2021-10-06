@@ -27,7 +27,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
             "SET ua.accountBalance = :accountBalance " +
             "WHERE ua.memberID = :memberID " +
             "AND ua.accountTypeID = :accountTypeID")
-    UserAccount updateUserAccount(@Param("accountBalance") Integer accountBalance, @Param("memberID") Long memberID, @Param("accountTypeID") Long accountTypeID);
+    void updateUserAccount(@Param("accountBalance") Integer accountBalance, @Param("memberID") Long memberID, @Param("accountTypeID") Long accountTypeID);
     //Todo: Fix this shit - pass a DTO
 }
 

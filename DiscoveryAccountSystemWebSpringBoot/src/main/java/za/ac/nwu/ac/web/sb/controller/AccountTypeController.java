@@ -136,9 +136,6 @@ public class AccountTypeController {
         if(null==newCreationDate){
             newCreationDate = tempDto.getCreationDate();
         }
-//        else{
-//            newCreationDate=LocalDate.now();
-//        }
         AccountTypeDto accountType = new AccountTypeDto(mnemonic, newAccountTypeName, newCreationDate);
 
         AccountTypeDto accountTypeResponse = modifyAccountTypeFlow.updateAccountType(accountType);
