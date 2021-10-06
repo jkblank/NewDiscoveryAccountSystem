@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 public interface ModifyUserAccountFlow {
 
     @Transactional
-
     UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
 
     @Transactional

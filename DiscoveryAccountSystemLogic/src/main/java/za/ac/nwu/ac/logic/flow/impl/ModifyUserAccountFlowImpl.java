@@ -43,7 +43,7 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
             LOGGER.info("The UserAccount was updated and has return object {}",result);
             return result;
         }else{
-            LOGGER.info("");
+            LOGGER.warn("Transaction is not valid - Attempting to Subtract more than current AccountValue");
             throw new RuntimeException("Unable to Update the database");
         }
     }
