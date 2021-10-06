@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ModifyUserAccountFlowImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">DiscoveryAccountSystemLogic</a> &gt; <a href="index.source.html" class="el_package">za.ac.nwu.ac.logic.flow.impl</a> &gt; <span class="el_source">ModifyUserAccountFlowImpl.java</span></div><h1>ModifyUserAccountFlowImpl.java</h1><pre class="source lang-java linenums">package za.ac.nwu.ac.logic.flow.impl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import za.ac.nwu.ac.domain.dto.UserAccountDto;
+import za.ac.nwu.ac.logic.flow.ModifyUserAccountFlow;
+import za.ac.nwu.ac.translator.UserAccountTranslator;
+
+import javax.transaction.Transactional;
+
+
+@Component
+public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
+<span class="nc" id="L15">    private static final Logger LOGGER = LoggerFactory.getLogger(ModifyUserAccountFlowImpl.class);</span>
+
+    private final UserAccountTranslator userAccountTranslator;
+
+<span class="nc" id="L19">    public ModifyUserAccountFlowImpl(UserAccountTranslator userAccountTranslator) {</span>
+<span class="nc" id="L20">        this.userAccountTranslator = userAccountTranslator;</span>
+<span class="nc" id="L21">    }</span>
+
+    @Transactional
+    @Override //Subtract
+    public UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
+
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if(transactionAmount&gt;0){</span>
+<span class="nc" id="L28">            transactionAmount=transactionAmount*-1;</span>
+        }
+<span class="nc" id="L30">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
+                &quot;\ntransactionAmount {}&quot; +
+                &quot;\nmemberID {}&quot; +
+                &quot;\naccountTypeID {}&quot;, transactionAmount,memberID,  accountTypeID);
+
+<span class="nc" id="L35">        Integer oldAccountBalance= 0;</span>
+<span class="nc" id="L36">        Integer newAccountBalance= 0;</span>
+<span class="nc" id="L37">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
+
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if(transactionAmount + oldAccountBalance &gt;=0){</span>
+<span class="nc" id="L40">            LOGGER.info(&quot;Transaction is Valid - Subtracting less than current AccountValue&quot;);</span>
+<span class="nc" id="L41">            newAccountBalance = transactionAmount + oldAccountBalance;</span>
+<span class="nc" id="L42">            UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
+<span class="nc" id="L43">            LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
+<span class="nc" id="L44">            return result;</span>
+        }else{
+<span class="nc" id="L46">            LOGGER.info(&quot;&quot;);</span>
+<span class="nc" id="L47">            throw new RuntimeException(&quot;Unable to Update the database&quot;);</span>
+        }
+    }
+    @Transactional
+    @Override
+    public UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
+
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(transactionAmount&lt;0){</span>
+<span class="nc" id="L55">            transactionAmount=transactionAmount*-1;</span>
+        }
+
+<span class="nc" id="L58">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
+                &quot;\ntransactionAmount {}&quot; +
+                &quot;\nmemberID {}&quot; +
+                &quot;\naccountTypeID {}&quot;, transactionAmount,memberID,  accountTypeID);
+
+<span class="nc" id="L63">        Integer oldAccountBalance= 0;</span>
+<span class="nc" id="L64">        Integer newAccountBalance= 0;</span>
+<span class="nc" id="L65">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
+
+<span class="nc" id="L67">        newAccountBalance = transactionAmount + oldAccountBalance;</span>
+<span class="nc" id="L68">        UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
+<span class="nc" id="L69">        LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
+<span class="nc" id="L70">        return result;</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

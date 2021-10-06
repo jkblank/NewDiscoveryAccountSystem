@@ -41,29 +41,15 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
 
     @Override
     @Transactional
-    public UserAccountDto updateUserAccount(Integer TransactionAmount, Long memberID, Long accountTypeID) {
+    public UserAccountDto updateUserAccount(Integer newAccountBalance, Long memberID, Long accountTypeID) {
 
         try{
-            Integer oldAccountBalance= 0;
-            Integer newAccountBalance= 0;
-
-            //ToDo: check if current value  is more than substract value
-            oldAccountBalance= getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
-            //ToDO: Move to Logic
-            if( TransactionAmount + oldAccountBalance >=0 ){
-                newAccountBalance = TransactionAmount + oldAccountBalance;//ToDO: Move to Logic
-                UserAccount userAccount =new UserAccount(memberID, accountTypeID,newAccountBalance);
-                userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
-                return new UserAccountDto(userAccount);
-            }else{
-                //ToDo some catch or some shit
-                throw new RuntimeException("Cannot Subtract more currency that you own!");
-            }
+            UserAccount userAccount =new UserAccount(memberID, accountTypeID,newAccountBalance);
+            userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+            return new UserAccountDto(userAccount);
         }catch (Exception e){
             throw new RuntimeException("Unable to update DB", e);
         }
-
-
     }
 
     //ToDo: Create GetUserByMemberIDandAccountTypeID

@@ -42,7 +42,9 @@ public class UserAccountController {
             @ApiParam(value = "Request body to create a new User Account", required = true)
             @RequestBody UserAccountDto userAccount ){
         //ToDO: add if checks to ensure values are added
+        LOGGER.info("Attempting to create new User Account with Input Value {}", userAccount);
         UserAccountDto userAccountResponse = createUserAccountFlow.create(userAccount);
+        LOGGER.info("Succesfully created new User Account with Input Value {}", userAccount);
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccountResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -58,21 +60,22 @@ public class UserAccountController {
     })
     public ResponseEntity<GeneralResponse<UserAccountDto>> getUserByMemberIDandAccountID(
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
-            name = "Member 1",
-//            type = "Long",
-            example = "100000000000001",
-            required = true)
+                    name = "Member 1",
+                    example = "100000000000001",
+                    required = true)
             @PathVariable("memberID")final Long memberID,
 
             @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
                     name = "Currency AccountID",
-//                    type = "Long",
                     example = "100000000000003",
                     required = true)
             @PathVariable("accountTypeID") final Long accountTypeID){
-//        UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(Long.toString(memberID), Long.toString(accountTypeID));
-        //ToDO: add if checks to ensure values are added
+//ToDO: add if checks to ensure values are added
+        LOGGER.info("Attempting to find User Account with properties: " +
+                "\nAccountTypeID = {}" +
+                "\nMemberID = {}",accountTypeID,memberID);
         UserAccountDto userAccount =fetchUserAccountFlow.getUserByMemberIDandAccountID(memberID , accountTypeID);
+        LOGGER.info("User Account with specified properties found.");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -80,8 +83,8 @@ public class UserAccountController {
 
 
         //ToDo: Fix this
-    @PutMapping("{transactionValue}")
-    @ApiOperation(value = "Updates a UserAccount with the value of a transaction",
+    @PutMapping("subtract/{subtractTransactionValue}")
+    @ApiOperation(value = "Decreases a UserAccount with the value of a transaction",
             notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
@@ -90,10 +93,10 @@ public class UserAccountController {
     })
     public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
             @ApiParam(value="Transaction Value",
-                    name="transactionValue",
+                    name="subtractTransactionValue",
                     example = "600",
                     required = true)
-            @PathVariable("transactionValue") final String transactionValue,
+            @PathVariable("subtractTransactionValue") final String transactionValue,
 
             @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
                     name = "memberID",
@@ -108,20 +111,64 @@ public class UserAccountController {
             @RequestParam("accountTypeID") final Long accountTypeID
             ){
         //ToDO: add if checks to ensure values are added
-        LOGGER.info("Length of Transaction Value {}",transactionValue.length());
 
         Integer intToPass =0;
         try{
             intToPass =Integer.parseInt(transactionValue);
         }catch (NumberFormatException e){
-            LOGGER.error("Parse Failed", e);
+            LOGGER.error("TransactionValue Parse Failed", e);
         }
-            LOGGER.info("Value of Transaction Value {}",transactionValue);
-            LOGGER.info("Length of Transaction Value {}",transactionValue.length());
-        UserAccountDto userAccount = modifyUserAccountFlow.updateUserAccount(intToPass,memberID , accountTypeID);
+            LOGGER.info("Value of TransactionValue {}",transactionValue);
+            LOGGER.info("Value of MemberID {}",memberID);
+            LOGGER.info("Value of AccountTypeID {}",accountTypeID);
+        UserAccountDto userAccount = modifyUserAccountFlow.subtractCurrencyFromUserAccount(intToPass,memberID , accountTypeID);
+        LOGGER.info("Update Operation Completed Successfully");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("add/{additionTransactionValue}")
+    @ApiOperation(value = "Increases a UserAccount with the value of a transaction",
+            notes = "")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+    })
+    public ResponseEntity<GeneralResponse<UserAccountDto>> addCurrencyToUserAccount(
+            @ApiParam(value="Transaction Value",
+                    name="additionTransactionValue",
+                    example = "600",
+                    required = true)
+            @PathVariable("additionTransactionValue") final String transactionValue,
+
+            @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
+                    name = "memberID",
+                    example = "1000000001",
+                    required = true)
+            @RequestParam("memberID") final Long memberID,
+
+            @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
+                    name="accountTypeID",
+                    example = "1000000001",
+                    required = true)
+            @RequestParam("accountTypeID") final Long accountTypeID
+    ){
+        //ToDO: add if checks to ensure values are added
+
+        Integer intToPass =0;
+        try{
+            intToPass =Integer.parseInt(transactionValue);
+        }catch (NumberFormatException e){
+            LOGGER.error("TransactionValue Parse Failed", e);
+        }
+        LOGGER.info("Value of TransactionValue {}",transactionValue);
+        LOGGER.info("Value of MemberID {}",memberID);
+        LOGGER.info("Value of AccountTypeID {}",accountTypeID);
+        UserAccountDto userAccount = modifyUserAccountFlow.addCurrencytoUserAccount(intToPass,memberID , accountTypeID);
+        LOGGER.info("Update Operation Completed Successfully");
+        GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 }

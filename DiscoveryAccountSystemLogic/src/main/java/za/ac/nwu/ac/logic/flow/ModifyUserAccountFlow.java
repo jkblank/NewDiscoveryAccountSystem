@@ -2,8 +2,15 @@ package za.ac.nwu.ac.logic.flow;
 
 import za.ac.nwu.ac.domain.dto.UserAccountDto;
 
+import javax.transaction.Transactional;
+
 public interface ModifyUserAccountFlow {
-    UserAccountDto updateUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
-    //ToDO: make this work
+
+    @Transactional
+
+    UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
+
+    @Transactional
+    UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
 
 }
