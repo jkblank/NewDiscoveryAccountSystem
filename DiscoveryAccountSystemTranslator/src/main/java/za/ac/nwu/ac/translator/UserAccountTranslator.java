@@ -11,4 +11,6 @@ public interface UserAccountTranslator {
     UserAccountDto updateUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
 
     UserAccountDto getUserByMemberIDandAccountTypeID(Long memberID, Long accountTypeID);
+
+    UserAccountDto getUserMilesAccount(Long memberID);
 }

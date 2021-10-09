@@ -71,7 +71,25 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
             LOGGER.info("User Found!\nHas properties: {}", userAccount);
             return new UserAccountDto(userAccount);
         }catch (Exception e){
-            LOGGER.error("Failed to find User because of reason: {}",e);
+            LOGGER.error("Failed to find User because of reason: ",e);
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+
+    }
+
+    @Override
+    public UserAccountDto getUserMilesAccount(Long memberID){
+        Long accountTypeID = 100000000000003L; //Miles Account Type ID
+        try{
+            LOGGER.info("Attempting to Find UserAccount with Properties:" +
+                            "\nMemberID: {}" +
+                            "\nAccountTypeID: {}",
+                    memberID, accountTypeID);
+            UserAccount userAccount=userAccountRepository.getUserByMemberIDandAccountTypeID(memberID, accountTypeID);
+            LOGGER.info("User Found!\nHas properties: {}", userAccount);
+            return new UserAccountDto(userAccount);
+        }catch (Exception e){
+            LOGGER.error("Failed to find User because of reason: ",e);
             throw new RuntimeException("Unable to read from the DB", e);
         }
 

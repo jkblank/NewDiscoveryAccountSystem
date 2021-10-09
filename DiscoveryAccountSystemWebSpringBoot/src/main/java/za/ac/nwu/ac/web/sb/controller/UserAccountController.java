@@ -92,9 +92,41 @@ public class UserAccountController {
         return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
+    @GetMapping("Miles/{memberID}")
+    @ApiOperation(value="Gets a UserAccount for specified MemberID and AccountTypeID",
+            notes = "Gets a UserAccount for specified MemberID and AccountTypeID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Account Types Returned", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Not Found", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+    })
+    public ResponseEntity<GeneralResponse<UserAccountDto>> getUserMilesAccount(
+            @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
+                    name = "memberID",
+                    example = "100000000000001",
+                    required = true)
+            @PathVariable("memberID")final String memberID)
+            {
+//ToDO: add if checks to ensure values are added
+        Long memberToPass = Long.valueOf(0);
+        try{
+            memberToPass = Long.parseLong(memberID);
+        }catch(NumberFormatException e){
+            LOGGER.error("Parses Failed", e);
+            throw new RuntimeException("Parsing of input values failed", e);
+        }
+        LOGGER.info("Attempting to find User Account with properties: " +
+                "\nMemberID = {}",memberID);
+        UserAccountDto userAccount =fetchUserAccountFlow.getUserMilesAccount(memberToPass);
+        LOGGER.info("User Account with specified properties found.");
+        GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
 
-        @PutMapping("subtract/{subtractTransactionValue}")
+
+        @PutMapping("Miles/subtract/{subtractTransactionValue}")
         @ApiOperation(value = "Decreases a User's Miles Account with the value of a transaction",
                 notes = "")
         @ApiResponses(value = {
@@ -132,7 +164,7 @@ public class UserAccountController {
         }
 
 
-    @PutMapping("add/{additionTransactionValue}")
+    @PutMapping("Miles/add/{additionTransactionValue}")
     @ApiOperation(value = "Increases a User's Miles Account with the value of a transaction",
             notes = "")
     @ApiResponses(value = {
@@ -163,7 +195,6 @@ public class UserAccountController {
         }
         LOGGER.info("Value of TransactionValue {}",transactionValue);
         LOGGER.info("Value of MemberID {}",memberID);
-        LOGGER.info("Value of AccountTypeID {}");
         UserAccountDto userAccount = modifyUserAccountFlow.addMilestoUserAccount(intToPass, memberID);
         LOGGER.info("Update Operation Completed Successfully");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);

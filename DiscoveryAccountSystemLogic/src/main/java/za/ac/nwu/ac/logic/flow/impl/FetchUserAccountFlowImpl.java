@@ -28,6 +28,14 @@ public class FetchUserAccountFlowImpl implements FetchUserAccountFlow {
         LOGGER.info("The returned UserAccountDto has value {}", result);
         return result;
     }
+    @Override
+    public UserAccountDto getUserMilesAccount(Long memberID) {
+        LOGGER.info("The fetch operation has input values: memberID {}",memberID);
+
+        UserAccountDto result = userAccountTranslator.getUserMilesAccount(memberID);
+        LOGGER.info("The returned UserAccountDto has value {}", result);
+        return result;
+    }
 
 
 }
