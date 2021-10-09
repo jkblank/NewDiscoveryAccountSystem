@@ -1,0 +1,1 @@
+start /B java -jar ./DiscoveryAccountSystemWebSpringBoot/target/DiscoveryAccountSystemWebSpringBoot-1.0-SNAPSHOT.war

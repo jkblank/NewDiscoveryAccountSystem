@@ -14,25 +14,25 @@ import java.time.LocalDate;
 @Component
 public class CreateUserAccountFlowImpl implements CreateUserAccountFlow {
 
-<span class="nc" id="L17">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateUserAccountFlowImpl.class);</span>
+<span class="fc" id="L17">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateUserAccountFlowImpl.class);</span>
 
     private final UserAccountTranslator userAccountTranslator;
 
-<span class="nc" id="L21">    public CreateUserAccountFlowImpl(UserAccountTranslator userAccountTranslator) {</span>
-<span class="nc" id="L22">        this.userAccountTranslator = userAccountTranslator;</span>
-<span class="nc" id="L23">    }</span>
+<span class="fc" id="L21">    public CreateUserAccountFlowImpl(UserAccountTranslator userAccountTranslator) {</span>
+<span class="fc" id="L22">        this.userAccountTranslator = userAccountTranslator;</span>
+<span class="fc" id="L23">    }</span>
 
     @Override
     public UserAccountDto create(UserAccountDto userAccount) {
-<span class="nc" id="L27">        LOGGER.info(&quot;The new UserAccount input object was {}.&quot;, userAccount);</span>
-<span class="nc bnc" id="L28" title="All 2 branches missed.">        if(null==userAccount.getCreationDate()){</span>
-<span class="nc" id="L29">            LocalDate now = LocalDate.now();</span>
-<span class="nc" id="L30">            userAccount.setCreationDate(now);</span>
-<span class="nc" id="L31">            LOGGER.info(&quot;UserAccount input Creation Date is NULL, setting to {}&quot;, LocalDate.now());</span>
+<span class="fc" id="L27">        LOGGER.info(&quot;The new UserAccount input object was {}.&quot;, userAccount);</span>
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">        if(null==userAccount.getCreationDate()){</span>
+<span class="fc" id="L29">            LocalDate now = LocalDate.now();</span>
+<span class="fc" id="L30">            userAccount.setCreationDate(now);</span>
+<span class="fc" id="L31">            LOGGER.info(&quot;UserAccount input Creation Date is NULL, setting to {}&quot;, LocalDate.now());</span>
         }
-<span class="nc" id="L33">        UserAccountDto result = userAccountTranslator.create(userAccount);</span>
-<span class="nc" id="L34">        LOGGER.info(&quot;The new UserAccount return object is {}.&quot;, result);</span>
-<span class="nc" id="L35">        return result;</span>
+<span class="fc" id="L33">        UserAccountDto result = userAccountTranslator.create(userAccount);</span>
+<span class="fc" id="L34">        LOGGER.info(&quot;The new UserAccount return object is {}.&quot;, result);</span>
+<span class="fc" id="L35">        return result;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

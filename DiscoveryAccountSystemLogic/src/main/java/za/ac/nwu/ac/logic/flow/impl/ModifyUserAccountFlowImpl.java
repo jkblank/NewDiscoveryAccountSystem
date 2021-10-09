@@ -49,8 +49,58 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
     }
     @Transactional
     @Override
+    public UserAccountDto subtractMilesFromUserAccount(Integer transactionAmount, Long memberID){
+        Long accountTypeID = 1000000001L; //Miles Account Type ID
+        if(transactionAmount>0){
+            transactionAmount=transactionAmount * -1;
+        }
+        LOGGER.info("The UserAccount to Update has input values: " +
+                "\n\ttransactionAmount = {}" +
+                "\n\tmemberID = {}" +
+                "\n\taccountTypeID = {}", transactionAmount, memberID,  accountTypeID);
+
+        Integer oldAccountBalance= 0;
+        Integer newAccountBalance= 0;
+        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+
+        if(transactionAmount + oldAccountBalance >=0){
+            LOGGER.info("Transaction is Valid - Subtracting less than current AccountValue");
+            newAccountBalance = transactionAmount + oldAccountBalance;
+            UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+            LOGGER.info("The UserAccount was updated and has return object {}",result);
+            return result;
+        }else{
+            LOGGER.warn("Transaction is not valid - Attempting to Subtract more than current AccountValue");
+            throw new RuntimeException("Unable to Update the database");
+        }
+    }
+    @Transactional
+    @Override
     public UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
+        if(transactionAmount<0){
+            transactionAmount=transactionAmount * -1;
+        }
+
+        LOGGER.info("The UserAccount to Update has input values: " +
+                "\n\ttransactionAmount = {}" +
+                "\n\tmemberID = {}" +
+                "\n\taccountTypeID = {}", transactionAmount,memberID,  accountTypeID);
+
+        Integer oldAccountBalance= 0;
+        Integer newAccountBalance= 0;
+        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+
+        newAccountBalance = transactionAmount + oldAccountBalance;
+        UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+        LOGGER.info("The UserAccount was updated and has return object {}",result);
+        return result;
+    }
+
+    @Transactional
+    @Override
+    public UserAccountDto addMilestoUserAccount(Integer transactionAmount, Long memberID){
+        Long accountTypeID = 1000000001L; //Miles Account Type ID
         if(transactionAmount<0){
             transactionAmount=transactionAmount * -1;
         }

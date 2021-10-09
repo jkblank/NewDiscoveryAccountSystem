@@ -15,23 +15,23 @@ import java.time.LocalDateTime;
 public class CreateTransactionFlowImpl implements CreateTransactionFlow {
     private final AccountTransactionTranslator accountTransactionTranslator;
 
-<span class="nc" id="L18">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateTransactionFlowImpl.class);</span>
+<span class="fc" id="L18">    private static final Logger LOGGER = LoggerFactory.getLogger(CreateTransactionFlowImpl.class);</span>
 
-<span class="nc" id="L20">    public CreateTransactionFlowImpl(AccountTransactionTranslator accountTransactionTranslator) {</span>
-<span class="nc" id="L21">        this.accountTransactionTranslator = accountTransactionTranslator;</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L20">    public CreateTransactionFlowImpl(AccountTransactionTranslator accountTransactionTranslator) {</span>
+<span class="fc" id="L21">        this.accountTransactionTranslator = accountTransactionTranslator;</span>
+<span class="fc" id="L22">    }</span>
 
     @Override
     public AccountTransactionDto create(AccountTransactionDto accountTransaction){
-<span class="nc" id="L26">        LOGGER.info(&quot;The new AccountTransaction input object is {}.&quot;, accountTransaction);</span>
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        if(null==accountTransaction.getTxDateTime()){</span>
-<span class="nc" id="L28">            LocalDateTime now = LocalDateTime.now();</span>
-<span class="nc" id="L29">            accountTransaction.setTxDateTime(now);</span>
-<span class="nc" id="L30">            LOGGER.info(&quot;AccountTransaction input Transaction DateTime is Null, setting to {}&quot;, now);</span>
+<span class="fc" id="L26">        LOGGER.info(&quot;The new AccountTransaction input object is {}.&quot;, accountTransaction);</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if(null==accountTransaction.getTxDateTime()){</span>
+<span class="fc" id="L28">            LocalDateTime now = LocalDateTime.now();</span>
+<span class="fc" id="L29">            accountTransaction.setTxDateTime(now);</span>
+<span class="fc" id="L30">            LOGGER.info(&quot;AccountTransaction input Transaction DateTime is Null, setting to {}&quot;, now);</span>
         }
-<span class="nc" id="L32">        AccountTransactionDto result = accountTransactionTranslator.create(accountTransaction);</span>
-<span class="nc" id="L33">        LOGGER.info(&quot;The new AccountTransaction return object is {}.&quot;,result);</span>
-<span class="nc" id="L34">        return result;</span>
+<span class="fc" id="L32">        AccountTransactionDto result = accountTransactionTranslator.create(accountTransaction);</span>
+<span class="fc" id="L33">        LOGGER.info(&quot;The new AccountTransaction return object is {}.&quot;,result);</span>
+<span class="fc" id="L34">        return result;</span>
     }
 
 }

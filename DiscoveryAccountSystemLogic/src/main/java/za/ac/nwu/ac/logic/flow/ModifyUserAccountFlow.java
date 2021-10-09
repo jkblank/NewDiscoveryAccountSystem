@@ -10,6 +10,12 @@ public interface ModifyUserAccountFlow {
     UserAccountDto subtractCurrencyFromUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
 
     @Transactional
+    UserAccountDto subtractMilesFromUserAccount(Integer transactionAmount, Long memberID);
+
+
+    @Transactional
     UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID);
+    @Transactional
+    UserAccountDto addMilestoUserAccount(Integer transactionAmount, Long memberID);
 
 }

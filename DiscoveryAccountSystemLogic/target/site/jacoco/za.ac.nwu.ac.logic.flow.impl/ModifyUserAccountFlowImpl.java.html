@@ -43,31 +43,81 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 <span class="nc" id="L43">            LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
 <span class="nc" id="L44">            return result;</span>
         }else{
-<span class="nc" id="L46">            LOGGER.info(&quot;&quot;);</span>
+<span class="nc" id="L46">            LOGGER.warn(&quot;Transaction is not valid - Attempting to Subtract more than current AccountValue&quot;);</span>
 <span class="nc" id="L47">            throw new RuntimeException(&quot;Unable to Update the database&quot;);</span>
+        }
+    }
+    @Transactional
+    @Override
+    public UserAccountDto subtractMilesFromUserAccount(Integer transactionAmount, Long memberID){
+<span class="nc" id="L53">        Long accountTypeID = 1000000001L; //Miles Account Type ID</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(transactionAmount&gt;0){</span>
+<span class="nc" id="L55">            transactionAmount=transactionAmount * -1;</span>
+        }
+<span class="nc" id="L57">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
+                &quot;\n\ttransactionAmount = {}&quot; +
+                &quot;\n\tmemberID = {}&quot; +
+                &quot;\n\taccountTypeID = {}&quot;, transactionAmount, memberID,  accountTypeID);
+
+<span class="nc" id="L62">        Integer oldAccountBalance= 0;</span>
+<span class="nc" id="L63">        Integer newAccountBalance= 0;</span>
+<span class="nc" id="L64">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if(transactionAmount + oldAccountBalance &gt;=0){</span>
+<span class="nc" id="L67">            LOGGER.info(&quot;Transaction is Valid - Subtracting less than current AccountValue&quot;);</span>
+<span class="nc" id="L68">            newAccountBalance = transactionAmount + oldAccountBalance;</span>
+<span class="nc" id="L69">            UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
+<span class="nc" id="L70">            LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
+<span class="nc" id="L71">            return result;</span>
+        }else{
+<span class="nc" id="L73">            LOGGER.warn(&quot;Transaction is not valid - Attempting to Subtract more than current AccountValue&quot;);</span>
+<span class="nc" id="L74">            throw new RuntimeException(&quot;Unable to Update the database&quot;);</span>
         }
     }
     @Transactional
     @Override
     public UserAccountDto addCurrencytoUserAccount(Integer transactionAmount, Long memberID, Long accountTypeID){
 
-<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(transactionAmount&lt;0){</span>
-<span class="nc" id="L55">            transactionAmount=transactionAmount * -1;</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        if(transactionAmount&lt;0){</span>
+<span class="nc" id="L82">            transactionAmount=transactionAmount * -1;</span>
         }
 
-<span class="nc" id="L58">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
+<span class="nc" id="L85">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
                 &quot;\n\ttransactionAmount = {}&quot; +
                 &quot;\n\tmemberID = {}&quot; +
                 &quot;\n\taccountTypeID = {}&quot;, transactionAmount,memberID,  accountTypeID);
 
-<span class="nc" id="L63">        Integer oldAccountBalance= 0;</span>
-<span class="nc" id="L64">        Integer newAccountBalance= 0;</span>
-<span class="nc" id="L65">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
+<span class="nc" id="L90">        Integer oldAccountBalance= 0;</span>
+<span class="nc" id="L91">        Integer newAccountBalance= 0;</span>
+<span class="nc" id="L92">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
 
-<span class="nc" id="L67">        newAccountBalance = transactionAmount + oldAccountBalance;</span>
-<span class="nc" id="L68">        UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
-<span class="nc" id="L69">        LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
-<span class="nc" id="L70">        return result;</span>
+<span class="nc" id="L94">        newAccountBalance = transactionAmount + oldAccountBalance;</span>
+<span class="nc" id="L95">        UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
+<span class="nc" id="L96">        LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
+<span class="nc" id="L97">        return result;</span>
+    }
+
+    @Transactional
+    @Override
+    public UserAccountDto addMilestoUserAccount(Integer transactionAmount, Long memberID){
+<span class="nc" id="L103">        Long accountTypeID = 1000000001L; //Miles Account Type ID</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if(transactionAmount&lt;0){</span>
+<span class="nc" id="L105">            transactionAmount=transactionAmount * -1;</span>
+        }
+
+<span class="nc" id="L108">        LOGGER.info(&quot;The UserAccount to Update has input values: &quot; +</span>
+                &quot;\n\ttransactionAmount = {}&quot; +
+                &quot;\n\tmemberID = {}&quot; +
+                &quot;\n\taccountTypeID = {}&quot;, transactionAmount,memberID,  accountTypeID);
+
+<span class="nc" id="L113">        Integer oldAccountBalance= 0;</span>
+<span class="nc" id="L114">        Integer newAccountBalance= 0;</span>
+<span class="nc" id="L115">        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();</span>
+
+<span class="nc" id="L117">        newAccountBalance = transactionAmount + oldAccountBalance;</span>
+<span class="nc" id="L118">        UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);</span>
+<span class="nc" id="L119">        LOGGER.info(&quot;The UserAccount was updated and has return object {}&quot;,result);</span>
+<span class="nc" id="L120">        return result;</span>
 
     }
 }

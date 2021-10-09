@@ -80,6 +80,7 @@ public class UserAccountController {
 
         }catch(NumberFormatException e){
             LOGGER.error("Parses Failed", e);
+            throw new RuntimeException("Parsing of input values failed", e);
         }
 
         LOGGER.info("Attempting to find User Account with properties: " +
@@ -89,53 +90,47 @@ public class UserAccountController {
         LOGGER.info("User Account with specified properties found.");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
-
         }
 
 
-        //ToDo: Fix this
-    @PutMapping("subtract/{subtractTransactionValue}")
-    @ApiOperation(value = "Decreases a UserAccount with the value of a transaction",
-            notes = "")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
-    })
-    public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
-            @ApiParam(value="Transaction Value",
-                    name="subtractTransactionValue",
-                    example = "600",
-                    required = true)
-            @PathVariable("subtractTransactionValue") final String transactionValue,
 
-            @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
-                    name = "memberID",
-                    example = "1000000001",
-                    required = true)
-            @RequestParam("memberID") final Long memberID,
+        @PutMapping("subtract/{subtractTransactionValue}")
+        @ApiOperation(value = "Decreases a UserAccount with the value of a transaction",
+                notes = "")
+        @ApiResponses(value = {
+                @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
+                @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+                @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
+        })
+        public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
+                @ApiParam(value="Transaction Value",
+                        name="subtractTransactionValue",
+                        example = "600",
+                        required = true)
+                @PathVariable("subtractTransactionValue") final String transactionValue,
 
-            @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
-                    name="accountTypeID",
-                    example = "1000000001",
-                    required = true)
-            @RequestParam("accountTypeID") final Long accountTypeID
-            ){
+                @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
+                        name = "memberID",
+                        example = "1000000001",
+                        required = true)
+                @RequestParam("memberID") final Long memberID
+        ){
 
-        Integer intToPass =0;
-        try{
-            intToPass =Integer.parseInt(transactionValue);
-        }catch (NumberFormatException e){
-            LOGGER.error("TransactionValue Parse Failed", e);
-        }
+            Integer intToPass =0;
+            try{
+                intToPass =Integer.parseInt(transactionValue);
+            }catch (NumberFormatException e){
+                LOGGER.error("TransactionValue Parse Failed", e);
+            }
             LOGGER.info("Value of TransactionValue {}",transactionValue);
             LOGGER.info("Value of MemberID {}",memberID);
-            LOGGER.info("Value of AccountTypeID {}",accountTypeID);
-        UserAccountDto userAccount = modifyUserAccountFlow.subtractCurrencyFromUserAccount(intToPass,memberID , accountTypeID);
-        LOGGER.info("Update Operation Completed Successfully");
-        GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//            LOGGER.info("Value of AccountTypeID {}",accountTypeID);
+            UserAccountDto userAccount = modifyUserAccountFlow.subtractMilesFromUserAccount(intToPass, memberID);
+            LOGGER.info("Update Operation Completed Successfully");
+            GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
 
     @PutMapping("add/{additionTransactionValue}")
     @ApiOperation(value = "Increases a UserAccount with the value of a transaction",
@@ -156,13 +151,7 @@ public class UserAccountController {
                     name = "memberID",
                     example = "1000000001",
                     required = true)
-            @RequestParam("memberID") final Long memberID,
-
-            @ApiParam(value = "The AccountTypeID that uniquely identifies the AccountType.",
-                    name="accountTypeID",
-                    example = "1000000001",
-                    required = true)
-            @RequestParam("accountTypeID") final Long accountTypeID
+            @RequestParam("memberID") final Long memberID
     ){
 
         Integer intToPass =0;
@@ -173,8 +162,8 @@ public class UserAccountController {
         }
         LOGGER.info("Value of TransactionValue {}",transactionValue);
         LOGGER.info("Value of MemberID {}",memberID);
-        LOGGER.info("Value of AccountTypeID {}",accountTypeID);
-        UserAccountDto userAccount = modifyUserAccountFlow.addCurrencytoUserAccount(intToPass,memberID , accountTypeID);
+        LOGGER.info("Value of AccountTypeID {}");
+        UserAccountDto userAccount = modifyUserAccountFlow.addMilestoUserAccount(intToPass, memberID);
         LOGGER.info("Update Operation Completed Successfully");
         GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
         return new ResponseEntity<>(response, HttpStatus.OK);
