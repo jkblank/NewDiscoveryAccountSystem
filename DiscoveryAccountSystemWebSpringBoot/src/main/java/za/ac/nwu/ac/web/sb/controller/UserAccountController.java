@@ -95,21 +95,21 @@ public class UserAccountController {
 
 
         @PutMapping("subtract/{subtractTransactionValue}")
-        @ApiOperation(value = "Decreases a UserAccount with the value of a transaction",
+        @ApiOperation(value = "Decreases a User's Miles Account with the value of a transaction",
                 notes = "")
         @ApiResponses(value = {
                 @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
                 @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
                 @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
         })
-        public ResponseEntity<GeneralResponse<UserAccountDto>> updateUserAccount(
+        public ResponseEntity<GeneralResponse<UserAccountDto>> subtractMilesFromUserAccount(
                 @ApiParam(value="Transaction Value",
                         name="subtractTransactionValue",
                         example = "600",
                         required = true)
                 @PathVariable("subtractTransactionValue") final String transactionValue,
 
-                @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
+                @ApiParam(value = "The MemberID that uniquely identifies the UserAccount Owner.",
                         name = "memberID",
                         example = "1000000001",
                         required = true)
@@ -121,10 +121,10 @@ public class UserAccountController {
                 intToPass =Integer.parseInt(transactionValue);
             }catch (NumberFormatException e){
                 LOGGER.error("TransactionValue Parse Failed", e);
+                throw new RuntimeException("Parsing of input values failed", e);
             }
             LOGGER.info("Value of TransactionValue {}",transactionValue);
             LOGGER.info("Value of MemberID {}",memberID);
-//            LOGGER.info("Value of AccountTypeID {}",accountTypeID);
             UserAccountDto userAccount = modifyUserAccountFlow.subtractMilesFromUserAccount(intToPass, memberID);
             LOGGER.info("Update Operation Completed Successfully");
             GeneralResponse<UserAccountDto> response = new GeneralResponse<>(true, userAccount);
@@ -133,21 +133,21 @@ public class UserAccountController {
 
 
     @PutMapping("add/{additionTransactionValue}")
-    @ApiOperation(value = "Increases a UserAccount with the value of a transaction",
+    @ApiOperation(value = "Increases a User's Miles Account with the value of a transaction",
             notes = "")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Account Type Successfully Created", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)
     })
-    public ResponseEntity<GeneralResponse<UserAccountDto>> addCurrencyToUserAccount(
+    public ResponseEntity<GeneralResponse<UserAccountDto>> addMilesToUserAccount(
             @ApiParam(value="Transaction Value",
                     name="additionTransactionValue",
                     example = "600",
                     required = true)
             @PathVariable("additionTransactionValue") final String transactionValue,
 
-            @ApiParam(value = "The MemberID that uniquely identifies the UserAccountOwner.",
+            @ApiParam(value = "The MemberID that uniquely identifies the UserAccount Owner.",
                     name = "memberID",
                     example = "1000000001",
                     required = true)
@@ -159,6 +159,7 @@ public class UserAccountController {
             intToPass =Integer.parseInt(transactionValue);
         }catch (NumberFormatException e){
             LOGGER.error("TransactionValue Parse Failed", e);
+            throw new RuntimeException("Parsing of input values failed", e);
         }
         LOGGER.info("Value of TransactionValue {}",transactionValue);
         LOGGER.info("Value of MemberID {}",memberID);

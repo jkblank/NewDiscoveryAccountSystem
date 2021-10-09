@@ -1,5 +1,7 @@
 package za.ac.nwu.ac.translator.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import za.ac.nwu.ac.domain.dto.UserAccountDto;
@@ -14,6 +16,8 @@ import javax.transaction.Transactional;
 @Component
 public class UserAccountTranslatorImpl implements UserAccountTranslator {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserAccountTranslatorImpl.class);
+
     private final UserAccountRepository userAccountRepository;
     private final AccountTransactionTranslator accountTransactionTranslator;
 
@@ -26,40 +30,48 @@ public class UserAccountTranslatorImpl implements UserAccountTranslator {
     @Override
     public UserAccountDto create(UserAccountDto userAccountDto) {
         try{
+            LOGGER.info("Attempting to write new UserAccount to Database with Properties {}", userAccountDto);
             UserAccount userAccount= userAccountRepository.save(userAccountDto.getUserAccount());
+            LOGGER.info("UserAccountSuccessfully Created");
             return new UserAccountDto(userAccount);
         }catch (Exception e){
+            LOGGER.error("Creation of new UserAccount failed with reason: ", e);
             throw  new RuntimeException("Unable to save to the DB", e);
         }
     }
-
-    //ToDo: Fix UpdateUserAccount
-    //ToDo: AccountTypeID cannot be called from within UserAccount.!!
-    // Need to call from the transaction.
-    // Need to create rollback point, create transaction,
-    //      then run update, then commit/rollback
 
     @Override
     @Transactional
     public UserAccountDto updateUserAccount(Integer newAccountBalance, Long memberID, Long accountTypeID) {
 
         try{
+            LOGGER.info("Attempting to update UserAccount with Input data: " +
+                    "\nMemberID: {}" +
+                    "\nAccountTypeID: {}" +
+                    "\nNew Account Balance: {}",
+                    memberID, accountTypeID, newAccountBalance);
             UserAccount userAccount =new UserAccount(memberID, accountTypeID,newAccountBalance);
             userAccountRepository.updateUserAccount(newAccountBalance, memberID, accountTypeID);
+            LOGGER.info("Successfully updated UserAccount");
             return new UserAccountDto(userAccount);
         }catch (Exception e){
+            LOGGER.error("Update of UserAccount Failed with reason",e);
             throw new RuntimeException("Unable to update DB", e);
         }
     }
 
-    //ToDo: Create GetUserByMemberIDandAccountTypeID
-
     @Override
     public UserAccountDto getUserByMemberIDandAccountTypeID(Long memberID, Long accountTypeID) {
         try{
+            LOGGER.info("Attempting to Find UserAccount with Properties:" +
+                    "\nMemberID: {}" +
+                    "\nAccountTypeID: {}",
+                    memberID, accountTypeID);
             UserAccount userAccount=userAccountRepository.getUserByMemberIDandAccountTypeID(memberID, accountTypeID);
+            LOGGER.info("User Found!\nHas properties: {}", userAccount);
             return new UserAccountDto(userAccount);
         }catch (Exception e){
+            LOGGER.error("Failed to find User because of reason: {}",e);
             throw new RuntimeException("Unable to read from the DB", e);
         }
 

@@ -34,11 +34,17 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 
         Integer oldAccountBalance= 0;
         Integer newAccountBalance= 0;
-        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
-
+        try {
+            oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            LOGGER.info("The userAccount had a Pre-transaction Balance of {} Miles", oldAccountBalance);
+        }catch (Exception e){
+            LOGGER.error("The userAccount could not be found due to reason: ", e);
+            throw new RuntimeException("UserAccount Could not be found", e);
+        }
         if(transactionAmount + oldAccountBalance >=0){
             LOGGER.info("Transaction is Valid - Subtracting less than current AccountValue");
             newAccountBalance = transactionAmount + oldAccountBalance;
+            LOGGER.info("The userAccount had a Post-transaction Balance of {} Miles", newAccountBalance);
             UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
             LOGGER.info("The UserAccount was updated and has return object {}",result);
             return result;
@@ -61,11 +67,18 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 
         Integer oldAccountBalance= 0;
         Integer newAccountBalance= 0;
-        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+        try {
+            oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            LOGGER.info("The userAccount had a Pre-transaction Balance of {} Miles", oldAccountBalance);
+        }catch (Exception e){
+            LOGGER.error("The userAccount could not be found due to reason: ", e);
+            throw new RuntimeException("UserAccount Could not be found", e);
+        }
 
         if(transactionAmount + oldAccountBalance >=0){
             LOGGER.info("Transaction is Valid - Subtracting less than current AccountValue");
             newAccountBalance = transactionAmount + oldAccountBalance;
+            LOGGER.info("The userAccount had a Post-transaction Balance of {} Miles", newAccountBalance);
             UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
             LOGGER.info("The UserAccount was updated and has return object {}",result);
             return result;
@@ -89,9 +102,16 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 
         Integer oldAccountBalance= 0;
         Integer newAccountBalance= 0;
-        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
-
+        try {
+            oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            LOGGER.info("The userAccount had a Pre-transaction Balance of {} Miles", oldAccountBalance);
+        }catch (Exception e){
+            LOGGER.error("The userAccount could not be found due to reason: ", e);
+            throw new RuntimeException("UserAccount Could not be found", e);
+        }
         newAccountBalance = transactionAmount + oldAccountBalance;
+        LOGGER.info("The userAccount had a Post-transaction Balance of {} Miles", newAccountBalance);
+
         UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
         LOGGER.info("The UserAccount was updated and has return object {}",result);
         return result;
@@ -112,9 +132,17 @@ public class ModifyUserAccountFlowImpl implements ModifyUserAccountFlow {
 
         Integer oldAccountBalance= 0;
         Integer newAccountBalance= 0;
-        oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
 
+        try {
+            oldAccountBalance= userAccountTranslator.getUserByMemberIDandAccountTypeID(memberID,accountTypeID).getAccountBalance();
+            LOGGER.info("The userAccount had a Pre-transaction Balance of {} Miles", oldAccountBalance);
+        }catch (Exception e){
+            LOGGER.error("The userAccount could not be found due to reason: ", e);
+            throw new RuntimeException("UserAccount Could not be found", e);
+        }
         newAccountBalance = transactionAmount + oldAccountBalance;
+        LOGGER.info("The userAccount had a Post-transaction Balance of {} Miles", newAccountBalance);
+
         UserAccountDto result =userAccountTranslator.updateUserAccount(newAccountBalance, memberID, accountTypeID);
         LOGGER.info("The UserAccount was updated and has return object {}",result);
         return result;
